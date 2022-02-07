@@ -1,0 +1,28 @@
+{
+  "name": "vue3-kantinKuh",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "es6-promise": "^4.2.8",
+    "pinia": "^2.0.11",
+    "vue": "^3.2.0",
+    "vue-barcode-reader": "^1.0.1",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.4",
+    "vite": "^1.0.0-rc.13"
+  },
+  "resolutions": {
+    "@rollup/plugin-alias": "3.1.8",
+    "@rollup/plugin-babel": "5.3.0",
+    "@rollup/plugin-commonjs": "21.0.1",
+    "@rollup/plugin-node-resolve": "13.0.6",
+    "@surma/rollup-plugin-off-main-thread": "2.2.3",
+    "rollup": "2.60.0"
+  }
+}

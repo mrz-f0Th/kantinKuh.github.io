@@ -1,0 +1,60 @@
+{
+  "produk": [
+    {
+      "id": 1,
+      "nama_produk": "Batagor",
+      "kode_produk": "BTR",
+      "gamber_produk": "https://media.istockphoto.com/photos/delicious-batagor-or-meatballs-tofu-is-one-of-the-popular-indonesian-picture-id1215879181?k=20&m=1215879181&s=612x612&w=0&h=qb3Pyhk35Au9l5u5etpWaEnqlZaL7GoTcoRLAnbTHGQ=",
+      "status_produk": "tersedia",
+      "kategori_produk": "food"
+    },
+    {
+      "nama_produk": "burger",
+      "kode_produk": "BRGR",
+      "gambar_produk": "gmbrbgrg",
+      "status_produk": "tersedia",
+      "kategori_produk": "Food",
+      "id": 2
+    },
+    {
+      "nama_produk": "HotDog",
+      "kode_produk": "HDTKD",
+      "gambar_produk": "gambr",
+      "status_produk": "tersedia",
+      "kategori_produk": "Food",
+      "id": 3
+    },
+    {
+      "nama_produk": "HotDog",
+      "kode_produk": "FGHSD",
+      "gambar_produk": "gambarhstmd",
+      "status_produk": "tersedia",
+      "kategori_produk": "Food",
+      "id": 4
+    },
+    {
+      "nama_produk": "bakso",
+      "kode_produk": "BSDK",
+      "gambar_produk": "gmbr",
+      "status_produk": "hehe",
+      "kategori_produk": "fod",
+      "id": 5
+    },
+    {
+      "nama_produk": "produk",
+      "kode_produk": "PRDK",
+      "gambar_produk": "prod",
+      "status_produk": "tersedia",
+      "kategori_produk": "Hehe",
+      "id": 6
+    },
+    {
+      "nama_produk": "endog dragon",
+      "kode_produk": "ENDGRN",
+      "gambar_produk": "gmbr",
+      "status_produk": "tersedia",
+      "kategori_produk": "rare food",
+      "id": 7
+    }
+  ]
+}

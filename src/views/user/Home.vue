@@ -1,0 +1,3 @@
+<template>
+  ini home
+</template>
