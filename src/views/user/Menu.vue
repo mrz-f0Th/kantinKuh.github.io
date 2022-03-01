@@ -1,9 +1,8 @@
 <template>
   <Suspense>                   
     <template #default>        
-      <div>                   
+      <div>
         <produks :menu='menu' @onPesan="pesan" />        
-        <router-view />
       </div>                   
     </template>                
     <template #fallback>       
@@ -27,9 +26,8 @@ export default{
     const menu = ref(true)
     const router = useRouter()
 
-    const pesan = (val) => {
-      console.log(val)
-      router.push({name : `user/menu/${val}`})
+    const pesan = (id) => {
+      router.push({path : `menu/${id}`})
     }
 
     return {pesan, menu}

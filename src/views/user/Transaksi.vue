@@ -1,16 +1,17 @@
 <template>
-  selamat datang, {{user.value}}
+  <p>ini Transaksi</p>
+  <p>status : {{ status }}</p>
 </template>
 
 <script setup>
+import { ref, onMounted, computed } from "vue"
 import { useTransaksiStore } from "../../stores/transaksi.js"
-import { onMounted, reactive, computed } from "vue"
 
 const transaksiStore = useTransaksiStore()
-const user = reactive({})
+let status = ref("")
 
 onMounted(() => {
-  user.value = computed(() => transaksiStore.user)
+  console.log(transaksiStore.statuss)
 })
 
 </script>

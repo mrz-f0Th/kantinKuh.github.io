@@ -1,13 +1,34 @@
 import { defineStore } from "pinia"
+import DataService from "../services/DataService"
 
 export const useTransaksiStore = defineStore({
   id: "Transaksi",
   state: () => {
-    user: {}
+    return {
+      user: {},
+      transaksi: {},
+      transaksiId: {},
+      statuss: "Menunggu"
+    }
   },
   actions: {
     setUser(value) {
       this.user = value
+    },
+    setStatus(value) {
+      this.statuss = value
+      console.log(this.statuss)
+    },
+    async setTransaksi(data) {
+      await DataService.setTransaksi(data);
+    },
+    async getTransaksi() {
+      const transaksi = await DataService.getTransaksi();
+      this.transaksi = transaksi.data
+    },
+    async getTransaksiId(id) {
+      const transaksiId = await DataService.getTransaksiId(id)
+      this.transaksiId = transaksiId.data
     }
   }
 })

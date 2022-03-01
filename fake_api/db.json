@@ -1,60 +1,175 @@
 {
-  "produk": [
+  "product": [
     {
       "id": 1,
       "nama_produk": "Batagor",
       "kode_produk": "BTR",
-      "gamber_produk": "https://media.istockphoto.com/photos/delicious-batagor-or-meatballs-tofu-is-one-of-the-popular-indonesian-picture-id1215879181?k=20&m=1215879181&s=612x612&w=0&h=qb3Pyhk35Au9l5u5etpWaEnqlZaL7GoTcoRLAnbTHGQ=",
+      "harga_produk": 2000,
+      "gambar_produk": "https://media.istockphoto.com/photos/delicious-batagor-or-meatballs-tofu-is-one-of-the-popular-indonesian-picture-id1215879181?k=20&m=1215879181&s=612x612&w=0&h=qb3Pyhk35Au9l5u5etpWaEnqlZaL7GoTcoRLAnbTHGQ=",
       "status_produk": "tersedia",
       "kategori_produk": "food"
     },
     {
-      "nama_produk": "burger",
-      "kode_produk": "BRGR",
-      "gambar_produk": "gmbrbgrg",
-      "status_produk": "tersedia",
-      "kategori_produk": "Food",
+      "nama_produk": "Bakso",
+      "harga_produk": 1000,
+      "kode_produk": "BSKJDSK",
+      "gambar_produk": "gambarBacos",
+      "status_produk": "ada",
+      "kategori_produk": "food",
       "id": 2
     },
     {
-      "nama_produk": "HotDog",
-      "kode_produk": "HDTKD",
-      "gambar_produk": "gambr",
-      "status_produk": "tersedia",
-      "kategori_produk": "Food",
+      "nama_produk": "burger",
+      "harga_produk": "5000",
+      "kode_produk": "HAGHDGSHV",
+      "gambar_produk": "gambar",
+      "status_produk": "ada",
+      "kategori_produk": "food",
       "id": 3
     },
     {
-      "nama_produk": "HotDog",
-      "kode_produk": "FGHSD",
-      "gambar_produk": "gambarhstmd",
-      "status_produk": "tersedia",
+      "nama_produk": "Oden",
+      "harga_produk": "1000",
+      "kode_produk": "ODEN",
+      "gambar_produk": "hehe",
+      "status_produk": "ada",
       "kategori_produk": "Food",
       "id": 4
+    }
+  ],
+  "keranjang": [],
+  "transaksi": [
+    {
+      "data": [
+        {
+          "produk": {
+            "id": 1,
+            "nama_produk": "Batagor",
+            "kode_produk": "BTR",
+            "harga_produk": 2000,
+            "gambar_produk": "https://media.istockphoto.com/photos/delicious-batagor-or-meatballs-tofu-is-one-of-the-popular-indonesian-picture-id1215879181?k=20&m=1215879181&s=612x612&w=0&h=qb3Pyhk35Au9l5u5etpWaEnqlZaL7GoTcoRLAnbTHGQ=",
+            "status_produk": "tersedia",
+            "kategori_produk": "food"
+          },
+          "jumlah": "5",
+          "keterangan": "pedas",
+          "id": 1
+        }
+      ],
+      "total_harga": 10000,
+      "kode_keranjang": "paEtA",
+      "user": {
+        "meja": "5",
+        "nama": "rakunTua",
+        "telepon": "08938497"
+      },
+      "id": 1
     },
     {
-      "nama_produk": "bakso",
-      "kode_produk": "BSDK",
-      "gambar_produk": "gmbr",
-      "status_produk": "hehe",
-      "kategori_produk": "fod",
-      "id": 5
+      "data": [
+        {
+          "produk": {
+            "nama_produk": "burger",
+            "harga_produk": "5000",
+            "kode_produk": "HAGHDGSHV",
+            "gambar_produk": "gambar",
+            "status_produk": "ada",
+            "kategori_produk": "food",
+            "id": 3
+          },
+          "jumlah": "3",
+          "keterangan": "-",
+          "id": 1
+        },
+        {
+          "produk": {
+            "nama_produk": "Bakso",
+            "harga_produk": 1000,
+            "kode_produk": "BSKJDSK",
+            "gambar_produk": "gambarBacos",
+            "status_produk": "ada",
+            "kategori_produk": "food",
+            "id": 2
+          },
+          "jumlah": "1",
+          "keterangan": "pedes ",
+          "id": 2
+        },
+        {
+          "produk": {
+            "id": 1,
+            "nama_produk": "Batagor",
+            "kode_produk": "BTR",
+            "harga_produk": 2000,
+            "gambar_produk": "https://media.istockphoto.com/photos/delicious-batagor-or-meatballs-tofu-is-one-of-the-popular-indonesian-picture-id1215879181?k=20&m=1215879181&s=612x612&w=0&h=qb3Pyhk35Au9l5u5etpWaEnqlZaL7GoTcoRLAnbTHGQ=",
+            "status_produk": "tersedia",
+            "kategori_produk": "food"
+          },
+          "jumlah": "2",
+          "keterangan": "nggak pedes",
+          "id": 3
+        }
+      ],
+      "total_harga": 20000,
+      "kode_keranjang": "6tJC5",
+      "user": {
+        "meja": "2",
+        "nama": "raka",
+        "telepon": "0849584"
+      },
+      "id": 2
     },
     {
-      "nama_produk": "produk",
-      "kode_produk": "PRDK",
-      "gambar_produk": "prod",
-      "status_produk": "tersedia",
-      "kategori_produk": "Hehe",
-      "id": 6
+      "data": [
+        {
+          "produk": {
+            "nama_produk": "burger",
+            "harga_produk": "5000",
+            "kode_produk": "HAGHDGSHV",
+            "gambar_produk": "gambar",
+            "status_produk": "ada",
+            "kategori_produk": "food",
+            "id": 3
+          },
+          "jumlah": "2",
+          "keterangan": "pake kacang",
+          "id": 1
+        }
+      ],
+      "total_harga": 10000,
+      "kode_keranjang": "g1rsf",
+      "user": {
+        "meja": "1",
+        "nama": "rakken",
+        "telepon": "98394387438"
+      },
+      "id": 3
     },
     {
-      "nama_produk": "endog dragon",
-      "kode_produk": "ENDGRN",
-      "gambar_produk": "gmbr",
-      "status_produk": "tersedia",
-      "kategori_produk": "rare food",
-      "id": 7
+      "data": [
+        {
+          "produk": {
+            "nama_produk": "Oden",
+            "harga_produk": "1000",
+            "kode_produk": "ODEN",
+            "gambar_produk": "hehe",
+            "status_produk": "ada",
+            "kategori_produk": "Food",
+            "id": 4
+          },
+          "jumlah": "1",
+          "keterangan": "hehe",
+          "id": 1
+        }
+      ],
+      "total_harga": 1000,
+      "kode_keranjang": "WxFh8",
+      "user": {
+        "meja": "5",
+        "nama": "kaido",
+        "telepon": "3784473849"
+      },
+      "id": 4
     }
   ]
 }

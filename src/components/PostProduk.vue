@@ -1,6 +1,7 @@
 <template>
   <h1>Ini Post-produk</h1>
   <p>nama_makanan: <input type="text" v-model="produk.nama_produk"  /></p>
+  <p>harga_makanan: <input type="text" v-model="produk.harga_produk"  /></p>
   <p>kode_makanan: <input type="text" v-model="produk.kode_produk" /></p>
   <p>gambar_makanan<input type="text" v-model="produk.gambar_produk"/></p>
   <p>status_makanan: <input type="text" v-model="produk.status_produk" /></p>
