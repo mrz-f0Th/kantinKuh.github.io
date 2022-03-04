@@ -1,13 +1,16 @@
 <template>
-  <p>List Transaksi</p>
-  <div v-for="(transaksi, i) in transaksi.value" :key="transaksi.id">
-    <p>No : {{i + 1}}</p>
-    <p>Nama : {{transaksi.user.nama}}</p>
-    <p>Total : {{transaksi.total_harga}}</p>
-    <div>
-      <span>Aksi : <button @click="transaksiDetail(transaksi.id)">detail</button></span>
-    </div>
+<div class="grid grid-cols-12 text-success">
+  <div class="col-span-3">
+    <h1 class="">Hello</h1>
   </div>
+  <div class="col-span-5">
+    <button class="btn btn-outline btn-success">Click</button>
+  </div>
+  <div class="col-span-2">1</div>
+  <div class="col-span-2">2</div>
+</div>
+
+
 </template>
 
 <script>
