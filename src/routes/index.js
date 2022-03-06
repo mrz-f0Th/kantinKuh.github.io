@@ -34,7 +34,8 @@ const routes = [
     name: "DashboardManager",
     component: DashboardManager, 
     meta: {
-      requiredAuthorization: true
+      requiredAuthorization: true,
+      title : "Manager"
     },
     children: [
       {
@@ -141,9 +142,9 @@ const routes = [
   }
 ]
 
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
 
-})
+// })
 
 const router = createRouter({
   history: createWebHistory(),
