@@ -9,8 +9,6 @@ import { onMounted, reactive, computed } from "vue"
 const transaksiStore = useTransaksiStore()
 const user = reactive({})
 
-onMounted(() => {
-  user.value = computed(() => transaksiStore.user)
-})
+onMounted(() => user.value = computed(() => transaksiStore.user))
 
 </script>

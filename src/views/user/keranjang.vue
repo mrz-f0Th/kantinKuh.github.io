@@ -24,17 +24,22 @@ const router = useRouter()
 
 
 const transaksi = async(data) => {
-  const keranjang = reactive({
-    data: data,
-    total_harga: data.total_harga
-  })
+
   keranjangStore.codeGenerator(5)
-  keranjang.kode_keranjang = keranjangStore.code
-  keranjang.user = transaksiStore.user
+
+  const keranjang = reactive({
+    kode_transaksi: keranjangStore.code,
+    kode_keranjang: data.kode_keranjang,
+    nama: transaksiStore.user.nama,
+    meja: transaksiStore.user.meja,
+    telepon: transaksiStore.user.telepon,
+  })
+
   try {
     await transaksiStore.setTransaksi(keranjang)
-    await keranjang.data.map(async (item) => await keranjangStore.deleteKeranjang(item.id))
+    //await keranjang.data.map(async (item) => await keranjangStore.deleteKeranjang(item.id))
     router.push({name: "Transaksi"})
+    localStorage.setItem("kode_transaksi", JSON.stringify(keranjangStore.code))
   }catch(e) {
     console.log(e)
   }

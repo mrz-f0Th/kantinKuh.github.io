@@ -11,11 +11,11 @@ export const useProdukStore = defineStore({
   actions: {
     async getProduk(){
       const prod = await DataService.getProduk()
-      this.produk = prod.data
+      this.produk = prod.data.data
     },
     async getProdukId(id){
       const produkId = await DataService.getProdukId(id)
-      this.produk = produkId.data
+      this.produk = produkId.data.data
     }
   }
 })

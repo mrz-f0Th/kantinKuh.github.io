@@ -21,20 +21,28 @@ class DataService {
     return http.get('/keranjang')
   }
 
+  getKeranjangKode(kode) {
+    return http.get(`/keranjang/${kode}`);
+  }
+
+  putKeranjang(kode, data) {
+    return http.patch(`keranjang/${kode}`, data)
+  }
+
   deleteKeranjang(id) {
     return http.delete(`/keranjang/${id}`)
   }
 
   setTransaksi(data) {
-    return http.post('/transaksi', data)
+    return http.post('/transaction', data)
   }
 
   getTransaksi() {
-    return http.get('/transaksi')
+    return http.get('/transaction')
   }
 
-  getTransaksiId(id) {
-    return http.get(`/transaksi/${id}`)
+  getTransaksiKode(kode) {
+    return http.get(`/transaction/${kode}`)
   }
 
   

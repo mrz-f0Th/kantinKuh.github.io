@@ -1,13 +1,10 @@
 <template> 
-  <div v-for="keranjang in keranjang.value" :key="keranjang.id">
-    <p>Jumlah: {{keranjang.jumlah}}</p>
-    <p>keterangan: {{keranjang.keterangan}}</p>
-    <p>gambar: {{keranjang.produk.gambar_produk}}</p>
-    <p>nama_produk: {{keranjang.produk.nama_produk}}</p>
-    <p>Harga: {{keranjang.produk.harga_produk * keranjang.jumlah}}</p>
-    <hr>
+  <div v-for="keranjang in keranjang.value">
+    <p>Jumlah: {{keranjang}}</p>
+       <hr>
   </div>
-  <p>Total Harga : {{totalHarga}}</p>
+  <pre>{{keranjang}}</pre>
+  <p>Total Harga : total</p>
   <button @click="transaksi(keranjang.value)">Pesan</button>
 </template>
 
@@ -21,23 +18,25 @@ export default{
     const keranjang = reactive({})
     const keranjangStore = useKeranjangStore()
 
+    const virtualKeranjang = JSON.parse(localStorage.getItem("keranjang"))
     try{
-      await keranjangStore.getKeranjang()
+      await keranjangStore.getKeranjangKode(virtualKeranjang.kode_keranjang)
       keranjang.value = keranjangStore.keranjang
     }catch(e) {
       console.log("error " + e)
     }
 
-    const totalHarga = keranjang.value.reduce((item, index) => {
-      return item + index.produk.harga_produk * index.jumlah
-    }, 0)
+    //const totalHarga = keranjang.value.reduce((item, index) => {
+    //  return item + index.produk.harga_produk * index.jumlah
+    //}, 0) 
 
     const transaksi = (data => {
-      data.total_harga = totalHarga
+      data.total_harga = "totalHarga"
       emit("transaksi", data)
+      console.log(data)
     })
 
-    return { keranjang, totalHarga, transaksi }
+    return { keranjang, transaksi }
   }
 }
 </script>

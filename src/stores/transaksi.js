@@ -24,11 +24,11 @@ export const useTransaksiStore = defineStore({
     },
     async getTransaksi() {
       const transaksi = await DataService.getTransaksi();
-      this.transaksi = transaksi.data
+      this.transaksi = transaksi.data.data
     },
-    async getTransaksiId(id) {
-      const transaksiId = await DataService.getTransaksiId(id)
-      this.transaksiId = transaksiId.data
+    async getTransaksiKode(kode) {
+      const transaksiId = await DataService.getTransaksiKode(kode)
+      this.transaksiId = transaksiId.data.data
     }
   }
 })

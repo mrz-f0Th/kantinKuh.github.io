@@ -1,12 +1,12 @@
 <template>
   <div v-if="result.value"  v-for="produk in result.value" :key="produk.id">
-    <p>nama : {{produk.nama_produk}}</p>
-    <p>kode : {{produk.kode_produk}}</p>
-    <p>harga : {{produk.harga_produk}}</p>
-    <p>gambar : {{produk.gambar_produk}}</p>
-    <p>status : {{produk.status_produk}}</p>
-    <p>kategori : {{produk.kategori_produk}}</p>
-    <button v-if='menu' @click="onPesan(produk.id)">Pesan</button>
+    <p>nama : {{produk.nama}}</p>
+    <p>kode : {{produk.kode}}</p>
+    <p>harga : {{produk.harga}}</p>
+    <p>gambar : {{produk.gambar}}</p>
+    <p>status : {{produk.status}}</p>
+    <p>kategori : {{produk.kategori}}</p>
+    <button v-if='menu' @click="onPesan(produk.kode)">Pesan</button>
     <hr>
   </div> 
   <div v-else>

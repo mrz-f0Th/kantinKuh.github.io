@@ -27,8 +27,22 @@ export default{
     const router = useRouter()
 
     const masukKeranjang = async (value) => {
-      await keranjangStore.setKeranjang(value)
-      router.push({name: "Keranjang"})
+      if(localStorage.getItem("keranjang") == null){
+        keranjangStore.codeGenerator(5);
+
+        const virtualKeranjang = reactive({
+          kode_keranjang: keranjangStore.code,
+          kode: [],
+          keterangan: [],
+          jumlah: []
+        })
+
+        localStorage.setItem("keranjang", JSON.stringify(virtualKeranjang))
+      }
+      if(localStorage.getItem("keranjang") !== null ){
+        await keranjangStore.setKeranjang(value)
+        router.push({name: "Keranjang"})
+      }
     } 
 
    return { masukKeranjang, keranjang } 
