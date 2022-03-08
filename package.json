@@ -14,7 +14,11 @@
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2",
     "@vue/compiler-sfc": "^3.0.4",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.7",
+    "tailwindcss": "^3.0.23",
     "vite": "^1.0.0-rc.13"
   },
   "resolutions": {

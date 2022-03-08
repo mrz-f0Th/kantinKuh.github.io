@@ -141,6 +141,12 @@ const routes = [
   }
 ]
 
+<<<<<<< HEAD
+=======
+// router.beforeEach((to, from, next) => {
+
+// })
+>>>>>>> 61a08344c66d7ade9aee306b14e9298a8d99b758
 
 const router = createRouter({
   history: createWebHistory(),
