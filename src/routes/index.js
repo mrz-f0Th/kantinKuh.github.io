@@ -1,157 +1,148 @@
-import { createWebHistory, createRouter } from 'vue-router';
+import { createWebHistory, createRouter } from "vue-router";
 
 // layout
 import DashboardManager from "../components/layout/DashboardManager.vue";
-import User from "../components/layout/DashboardUser.vue"
-import DashboardKasir from "../components/layout/DashboardKasir.vue"
-import DashboardKoki from "../components/layout/DashboardKoki.vue"
+import User from "../components/layout/DashboardUser.vue";
+import DashboardKasir from "../components/layout/DashboardKasir.vue";
+import DashboardKoki from "../components/layout/DashboardKoki.vue";
 
 // manager
-import Home from "../views/manager/Home.vue"
-import ProdukList from "../views/manager/ProdukList.vue"
-import PostProduk from "../components/PostProduk.vue"
+import Home from "../views/manager/Home.vue";
+import ProdukList from "../views/manager/ProdukList.vue";
+import PostProduk from "../components/PostProduk.vue";
 
 // user
-import LoginUser from "../views/user/Form.vue"
-import UserHome from "../views/user/Home.vue"
-import UserMenu from "../views/user/Menu.vue"
-import MenuId from "../views/user/MenuId.vue"
-import Keranjang from "../views/user/keranjang.vue"
-import Transaksi from "../views/user/Transaksi.vue"
+import LoginUser from "../views/user/Form.vue";
+import UserHome from "../views/user/Home.vue";
+import UserMenu from "../views/user/Menu.vue";
+import MenuId from "../views/user/MenuId.vue";
+import Keranjang from "../views/user/keranjang.vue";
+import Transaksi from "../views/user/Transaksi.vue";
 
-// kasir 
-import KasirHome from "../views/kasir/Home.vue"
-import KasirDetail from "../views/kasir/DetailTransaksi.vue"
+// kasir
+import KasirHome from "../views/kasir/Home.vue";
+import KasirDetail from "../views/kasir/DetailTransaksi.vue";
 
-// koki 
-import KokiHome from "../views/koki/HomeKoki.vue"
+// koki
+import KokiHome from "../views/koki/HomeKoki.vue";
 
 const routes = [
-
   // Manager Routes
   {
-    path: '/',
+    path: "/",
     name: "DashboardManager",
-    component: DashboardManager, 
+    component: DashboardManager,
     meta: {
-      requiredAuthorization: true
+      requiredAuthorization: true,
     },
     children: [
       {
-        path: '',
+        path: "",
         name: "Dashboard",
-        component: Home
+        component: Home,
       },
       {
-        path: 'produk',
+        path: "produk",
         name: "Produk",
-        component: ProdukList
+        component: ProdukList,
       },
       {
-        path: 'post-produk',
+        path: "post-produk",
         name: "PostProduk",
-        component: PostProduk
+        component: PostProduk,
       },
-    ]
+    ],
   },
 
   // user routes
   {
-    path: '/user',
+    path: "/user",
     name: "DashboardUser",
     component: User,
     meta: {
-      requiredAuthorization: true
+      requiredAuthorization: true,
     },
     children: [
       {
-        path: '',
+        path: "",
         name: "UserHome",
-        component: UserHome
+        component: UserHome,
       },
       {
-        path: 'menu',
+        path: "menu",
         name: "UserMenu",
         component: UserMenu,
       },
       {
-        path: 'menu/:id',
+        path: "menu/:id",
         name: "MenuId",
-        component: MenuId
+        component: MenuId,
       },
       {
-        path: 'keranjang',
+        path: "keranjang",
         name: "Keranjang",
-        component: Keranjang
-      }, 
+        component: Keranjang,
+      },
       {
-        path: 'transaksi',
+        path: "transaksi",
         name: "Transaksi",
-        component: Transaksi
-      }
-
-    ]
+        component: Transaksi,
+      },
+    ],
   },
   {
-    path: '/user-login',
+    path: "/user-login",
     name: "LoginUser",
     component: LoginUser,
     meta: {
-      requiredAuthorization: false
+      requiredAuthorization: false,
     },
   },
 
   // kasir routes
   {
-    path : '/kasir',
+    path: "/kasir",
     name: "DashboardKasir",
     component: DashboardKasir,
     meta: {
-      requiredAuthorization: true
+      requiredAuthorization: true,
     },
     children: [
       {
-        path: '',
+        path: "",
         name: "KasirHome",
-        component: KasirHome
+        component: KasirHome,
       },
       {
-        path: ':id',
-        name: 'KasirDetail',
-        component: KasirDetail
-      }
-    ]
+        path: ":id",
+        name: "KasirDetail",
+        component: KasirDetail,
+      },
+    ],
   },
 
-  // koki routes 
+  // koki routes
   {
-    path: '/koki',
+    path: "/koki",
     name: "Koki",
     component: DashboardKoki,
     meta: {
-      requiredAuthorization: false
+      requiredAuthorization: false,
     },
     children: [
       {
-        path: '',
+        path: "",
         name: "kokiHome",
-        component: KokiHome
-      }
-    ]
-  }
-]
-
-<<<<<<< HEAD
-=======
-// router.beforeEach((to, from, next) => {
-
-// })
->>>>>>> 61a08344c66d7ade9aee306b14e9298a8d99b758
+        component: KokiHome,
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
-
+  routes,
+  linkExactActiveClass: "bg-green-300",
+});
 
 export default router;

@@ -1,27 +1,29 @@
 <template>
-  <pre>{{transaksi}}</pre>  
+  <pre>{{ transaksi }}</pre>
 </template>
 
 <script>
-import { useTransaksiStore } from "../stores/transaksi.js"
-import { reactive } from "vue"
+import { useTransaksiStore } from "../stores/transaksi.js";
+import { reactive } from "vue";
 
-export default{
-  setup() {
-    const transaksiStore = useTransaksiStore()
+export default {
+  async setup() {
+    const transaksiStore = useTransaksiStore();
 
-    const transaksi = reactive({})
+    const transaksi = reactive({});
 
-    const virKeranjang = JSON.parse(localStorage.getItem('keranjang'))
-    const kode_transaksi = JSON.parse(localStorage.kode_transaksi)
-
-    try{
-      transaksiStore.getTransaksiKode(kode_transaksi)
-      transaksi.value = transaksiStore.transaksiId
-    }catch(e) {
-      console.log(e)
+    if (localStorage.getItem("kode_transaksi") !== null) {
+      const kode_transaksi = JSON.parse(localStorage.kode_transaksi);
+      try {
+        await transaksiStore.getTransaksiKode(kode_transaksi);
+        transaksi.value = transaksiStore.transaksiId;
+        console.log(transaksi);
+      } catch (e) {
+        console.log(e);
+      }
     }
-    return { transaksi }
-  }
-}
+
+    return { transaksi };
+  },
+};
 </script>

@@ -2,30 +2,40 @@
   <Suspense>
     <template #default>
       <div>
-        <keranjang @transaksi="transaksi"/>
+        <keranjang @transaksi="transaksi">
+          <template v-slot:default>
+            <th>Name</th>
+            <th>Jumlah</th>
+            <th>Harga</th>
+            <th></th>
+          </template>
+        </keranjang>
       </div>
     </template>
     <template #fallback>
-      <p>Loading ...</p>
+      <div>
+        <p v-if="isKeranjang">Loading ...</p>
+        <p v-else>Not found</p>
+      </div>
     </template>
   </Suspense>
 </template>
 
 <script setup>
-import keranjang from "../../components/keranjangComponent.vue"
-import { useKeranjangStore } from "../../stores/keranjang.js"
-import { useTransaksiStore } from "../../stores/transaksi.js"
-import { reactive } from "vue"
-import { useRouter } from "vue-router"
+import keranjang from "../../components/keranjangComponent.vue";
+import { useKeranjangStore } from "../../stores/keranjang.js";
+import { useTransaksiStore } from "../../stores/transaksi.js";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
-const keranjangStore = useKeranjangStore()
-const transaksiStore = useTransaksiStore()
-const router = useRouter()
+const keranjangStore = useKeranjangStore();
+const transaksiStore = useTransaksiStore();
+const router = useRouter();
 
+const isKeranjang = localStorage.getItem("keranjang");
 
-const transaksi = async(data) => {
-
-  keranjangStore.codeGenerator(5)
+const transaksi = async (data) => {
+  keranjangStore.codeGenerator(5);
 
   const keranjang = reactive({
     kode_transaksi: keranjangStore.code,
@@ -33,17 +43,16 @@ const transaksi = async(data) => {
     nama: transaksiStore.user.nama,
     meja: transaksiStore.user.meja,
     telepon: transaksiStore.user.telepon,
-  })
+  });
 
   try {
-    await transaksiStore.setTransaksi(keranjang)
-    //await keranjang.data.map(async (item) => await keranjangStore.deleteKeranjang(item.id))
-    router.push({name: "Transaksi"})
-    localStorage.setItem("kode_transaksi", JSON.stringify(keranjangStore.code))
-  }catch(e) {
-    console.log(e)
+    await transaksiStore.setTransaksi(keranjang);
+    localStorage.removeItem("keranjang");
+    localStorage.setItem("kode_transaksi", JSON.stringify(keranjangStore.code));
+    keranjangStore.keranjangLength = 0;
+    router.push({ name: "Transaksi" });
+  } catch (e) {
+    console.log(e);
   }
-}
-
-
+};
 </script>

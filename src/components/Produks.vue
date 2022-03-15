@@ -1,49 +1,63 @@
 <template>
-  <div v-if="result.value"  v-for="produk in result.value" :key="produk.id">
-    <p>nama : {{produk.nama}}</p>
-    <p>kode : {{produk.kode}}</p>
-    <p>harga : {{produk.harga}}</p>
-    <p>gambar : {{produk.gambar}}</p>
-    <p>status : {{produk.status}}</p>
-    <p>kategori : {{produk.kategori}}</p>
-    <button v-if='menu' @click="onPesan(produk.kode)">Pesan</button>
-    <hr>
-  </div> 
-  <div v-else>
-    <p>Tidak ada data produk</p>
+  <div class="flex">
+    <div
+      class="card w-80 bg-base-100 shadow-xl m-5"
+      v-if="result.value"
+      v-for="produk in result.value"
+      :key="produk.id"
+    >
+      <figure>
+        <img
+          src="https://api.lorem.space/image/burger?w=400&h=225"
+          alt="Shoes"
+        />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title">{{ produk.nama }}</h2>
+        <p>Rp. {{ produk.harga }}</p>
+        <p>{{ produk.kategori }}</p>
+        <div class="card-actions justify-end">
+          <button class="btn btn-success" @click="onPesan(produk.kode)">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <p>tidak ada produk</p>
+    </div>
   </div>
 </template>
 
 <script>
-import { reactive ,computed, ref } from "vue"
-import { useProdukStore } from "../stores/produk.js" 
-  
-export default{
+import { reactive, computed, ref } from "vue";
+import { useProdukStore } from "../stores/produk.js";
+
+export default {
   props: {
     menu: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ["onPesan"],
-  async setup(props, {emit}){
-    const produkStore = useProdukStore(); 
-    const result = reactive({})
+  async setup(props, { emit }) {
+    const produkStore = useProdukStore();
+    const result = reactive({});
     const error = ref(null);
 
-    try{
-      await produkStore.getProduk();  
-      result.value = computed(() => produkStore.produk)
-      console.log(result.value);
-    }catch(e) {
-      error.value = e
-    }    
+    try {
+      await produkStore.getProduk();
+      result.value = computed(() => produkStore.produk);
+    } catch (e) {
+      error.value = e;
+    }
 
     const onPesan = (id) => {
-      emit('onPesan', id)
-    }
-    
-    return{ result, onPesan }           
-  } 
-}   
+      emit("onPesan", id);
+    };
+
+    return { result, onPesan };
+  },
+};
 </script>

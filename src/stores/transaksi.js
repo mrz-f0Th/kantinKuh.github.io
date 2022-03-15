@@ -1,5 +1,5 @@
-import { defineStore } from "pinia"
-import DataService from "../services/DataService"
+import { defineStore } from "pinia";
+import DataService from "../services/DataService";
 
 export const useTransaksiStore = defineStore({
   id: "Transaksi",
@@ -8,27 +8,30 @@ export const useTransaksiStore = defineStore({
       user: {},
       transaksi: {},
       transaksiId: {},
-      statuss: "Menunggu"
-    }
+      statuss: "Menunggu",
+    };
   },
   actions: {
     setUser(value) {
-      this.user = value
+      localStorage.setItem("user", JSON.stringify(value));
+    },
+    getUser() {
+      this.user = JSON.parse(localStorage.getItem("user"));
     },
     setStatus(value) {
-      this.statuss = value
-      console.log(this.statuss)
+      this.statuss = value;
+      console.log(this.statuss);
     },
     async setTransaksi(data) {
       await DataService.setTransaksi(data);
     },
     async getTransaksi() {
       const transaksi = await DataService.getTransaksi();
-      this.transaksi = transaksi.data.data
+      this.transaksi = transaksi.data.data;
     },
     async getTransaksiKode(kode) {
-      const transaksiId = await DataService.getTransaksiKode(kode)
-      this.transaksiId = transaksiId.data.data
-    }
-  }
-})
+      const transaksiId = await DataService.getTransaksiKode(kode);
+      this.transaksiId = transaksiId.data.data;
+    },
+  },
+});

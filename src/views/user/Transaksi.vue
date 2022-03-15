@@ -1,19 +1,30 @@
 <template>
-  <div>
-    <pesanan />
-  </div>
+  <Suspense>
+    <template #default>
+      <pesanan />
+    </template>
+    <template #fallback>
+      <h1>Loading ...</h1>
+    </template>
+  </Suspense>
 </template>
 
-<script setup>
-import { ref, reactive, onMounted, computed } from "vue"
-import { useTransaksiStore } from "../../stores/transaksi.js"
-import pesanan from '../../components/PesanansComponent.vue'
+<script>
+import { ref, reactive, onMounted, computed } from "vue";
+import { useTransaksiStore } from "../../stores/transaksi.js";
+import pesanan from "../../components/PesanansComponent.vue";
 
-const transaksiStore = useTransaksiStore()
-let status = ref("")
-const transaksi = reactive({})
-onMounted(() => {
-  console.log(transaksiStore.statuss)
-})
-
+export default {
+  components: {
+    pesanan,
+  },
+  setup() {
+    const transaksiStore = useTransaksiStore();
+    let status = ref("");
+    const transaksi = reactive({});
+    onMounted(() => {
+      console.log(transaksiStore.statuss);
+    });
+  },
+};
 </script>
