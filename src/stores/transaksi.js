@@ -9,6 +9,8 @@ export const useTransaksiStore = defineStore({
       transaksi: {},
       transaksiId: {},
       statuss: "Menunggu",
+      total_harga: "",
+      arrTotalHarga: [],
     };
   },
   actions: {
@@ -20,7 +22,18 @@ export const useTransaksiStore = defineStore({
     },
     setStatus(value) {
       this.statuss = value;
-      console.log(this.statuss);
+    },
+    setTotalHarga(data) {
+      const totalHarga = data.reduce((i, item) => {
+        return i + item.harga * item.pivot.jumlah;
+      }, 0);
+      this.total_harga = totalHarga;
+    },
+    setArrTotalHarga(data) {
+      const arrTotalHarga = data.reduce((i, item) => {
+        return i + item.harga * item.pivot.jumlah;
+      }, 0);
+      this.arrTotalHarga.push(arrTotalHarga);
     },
     async setTransaksi(data) {
       await DataService.setTransaksi(data);
@@ -32,6 +45,10 @@ export const useTransaksiStore = defineStore({
     async getTransaksiKode(kode) {
       const transaksiId = await DataService.getTransaksiKode(kode);
       this.transaksiId = transaksiId.data.data;
+    },
+    async updateTransaksi(kode, params) {
+      const updateTransaksi = await DataService.updateTransaksi(kode, params);
+      this.transaksi = updateTransaksi.data.data;
     },
   },
 });

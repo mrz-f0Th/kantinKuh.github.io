@@ -1,11 +1,11 @@
 <template>
   <div class="flex justify-center">
     <div class="overflow-x-auto w-11/12">
-      <table class="table w-full">
+      <table class="table w-full" v-if="keranjang.value.product">
         <!-- head -->
         <thead>
           <tr>
-            <slot />
+            <slot name="header" />
           </tr>
         </thead>
         <tbody>
@@ -56,13 +56,11 @@
         <!-- foot -->
         <tfoot>
           <tr>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
+            <slot name="footer" />
           </tr>
         </tfoot>
       </table>
+      <div v-else>Tidak ada Keranjang</div>
     </div>
   </div>
 </template>
@@ -70,12 +68,14 @@
 <script>
 import { reactive, computed } from "vue";
 import { useKeranjangStore } from "../stores/keranjang.js";
+import { useTransaksiStore } from "../stores/transaksi.js";
 
 export default {
   emits: ["transaksi"],
   async setup(props, { emit }) {
     const keranjang = reactive({});
     const keranjangStore = useKeranjangStore();
+    const transaksiStore = useTransaksiStore();
 
     if (localStorage.getItem("keranjang") !== null) {
       const virtualKeranjang = JSON.parse(localStorage.getItem("keranjang"));
@@ -87,14 +87,13 @@ export default {
       }
     }
 
-    const totalHarga = keranjang.value.product.reduce((i, item) => {
-      return i + item.harga * item.pivot.jumlah;
-    }, 0);
+    transaksiStore.setTotalHarga(keranjang.value.product);
+    const totalHarga = transaksiStore.total_harga;
 
     const transaksi = (data) => {
-      data.total_harga = "totalHarga";
+      transaksiStore.setArrTotalHarga(keranjang.value.product);
+      data.total_harga = totalHarga;
       emit("transaksi", data);
-      console.log(data);
     };
 
     return { keranjang, transaksi, totalHarga };

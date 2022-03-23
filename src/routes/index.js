@@ -1,5 +1,8 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+// Login
+import Login from "../views/LoginView.vue";
+
 // layout
 import DashboardManager from "../components/layout/DashboardManager.vue";
 import User from "../components/layout/DashboardUser.vue";
@@ -32,9 +35,6 @@ const routes = [
     path: "/",
     name: "DashboardManager",
     component: DashboardManager,
-    meta: {
-      requiredAuthorization: true,
-    },
     children: [
       {
         path: "",
@@ -52,6 +52,11 @@ const routes = [
         component: PostProduk,
       },
     ],
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
 
   // user routes

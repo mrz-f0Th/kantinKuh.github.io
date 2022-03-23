@@ -8,8 +8,8 @@
         />
       </figure>
       <div class="card-body">
-        <h2 class="card-title text-2xl">{{ nama }}</h2>
-        <p>Rp. {{ harga }} | {{ status }}</p>
+        <h2 class="card-title text-2xl">{{ data.nama }}</h2>
+        <p>Rp. {{ data.harga }} | {{ data.status }}</p>
         <div class="form-control">
           <label class="input-group my-4">
             <span>jumlah Pesanan</span>
@@ -66,7 +66,7 @@ export default {
 
     const masukKeranjang = (value) => {
       const keranjang = reactive({
-        kode: [value.produk.kode],
+        kode: [value.produk.data.kode],
         jumlah: [value.jumlah],
         keterangan: [value.keterangan],
       });

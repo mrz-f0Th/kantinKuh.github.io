@@ -2,21 +2,20 @@
   <Suspense>
     <template #default>
       <div>
-        <hr>
-        <router-link to="post-produk">| tambah Produk |</router-link>
-        <hr>
+        <router-link to="post-produk" class="btn btn-success"
+          >tambah Produk</router-link
+        >
         <produks />
       </div>
     </template>
     <template #fallback>
       <div>
         <span>Loading ...</span>
-      </div>  
+      </div>
     </template>
   </Suspense>
 </template>
 
-
 <script setup>
-import produks from "../../components/Produks.vue"
+import produks from "../../components/Produks.vue";
 </script>

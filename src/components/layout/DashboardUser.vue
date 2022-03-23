@@ -86,22 +86,32 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useKeranjangStore } from "../../stores/keranjang.js";
+import { useTransaksiStore } from "../../stores/transaksi.js";
 
 export default {
   setup() {
     const keranjangStore = useKeranjangStore();
+    const transaksiStore = useTransaksiStore();
 
     const keranjangLength = ref("");
     const isDropdown = ref(false);
 
-    keranjangStore.$subscribe(
-      (mutation, state) => {
-        keranjangLength.value = state.keranjangLength;
-      },
-      { detached: true }
-    );
+    onMounted(() => {
+      transaksiStore.getUser();
+    });
+
+    if (localStorage.keranjang !== null) {
+      keranjangStore.$subscribe(
+        (mutation, state) => {
+          keranjangLength.value = state.keranjangLength;
+        },
+        { detached: true }
+      );
+    } else if (localStorage.keranjang == nul) {
+      keranjangLength.value = 0;
+    }
 
     return { keranjangLength, isDropdown };
   },

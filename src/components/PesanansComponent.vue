@@ -10,13 +10,16 @@ export default {
   async setup() {
     const transaksiStore = useTransaksiStore();
 
-    const transaksi = reactive({});
+    let transaksi = reactive([]);
 
     if (localStorage.getItem("kode_transaksi") !== null) {
-      const kode_transaksi = JSON.parse(localStorage.kode_transaksi);
+      let kode_transaksi = reactive([]);
+      kode_transaksi = JSON.parse(localStorage.getItem("kode_transaksi"));
       try {
-        await transaksiStore.getTransaksiKode(kode_transaksi);
-        transaksi.value = transaksiStore.transaksiId;
+        for (let i = 0; i < kode_transaksi.length; i++) {
+          await transaksiStore.getTransaksiKode(kode_transaksi[i]);
+          transaksi.push(transaksiStore.transaksiId);
+        }
         console.log(transaksi);
       } catch (e) {
         console.log(e);

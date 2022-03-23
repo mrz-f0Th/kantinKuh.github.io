@@ -1,7 +1,7 @@
 <template>
   <Suspense>
     <template #default>
-      <pesanan />
+      <transaksi />
     </template>
     <template #fallback>
       <h1>Loading ...</h1>
@@ -12,11 +12,11 @@
 <script>
 import { ref, reactive, onMounted, computed } from "vue";
 import { useTransaksiStore } from "../../stores/transaksi.js";
-import pesanan from "../../components/PesanansComponent.vue";
+import transaksi from "../../components/TransaksiComponent.vue";
 
 export default {
   components: {
-    pesanan,
+    transaksi,
   },
   setup() {
     const transaksiStore = useTransaksiStore();

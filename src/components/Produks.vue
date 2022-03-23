@@ -13,11 +13,11 @@
         />
       </figure>
       <div class="card-body">
-        <h2 class="card-title">{{ produk.nama }}</h2>
-        <p>Rp. {{ produk.harga }}</p>
-        <p>{{ produk.kategori }}</p>
+        <h2 class="card-title">{{ produk.data.nama }}</h2>
+        <p>Rp. {{ produk.data.harga }}</p>
+        <p>{{ produk.data.kategori }}</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-success" @click="onPesan(produk.kode)">
+          <button class="btn btn-success" @click="onPesan(produk.data.kode)">
             Buy Now
           </button>
         </div>
@@ -49,6 +49,7 @@ export default {
     try {
       await produkStore.getProduk();
       result.value = computed(() => produkStore.produk);
+      console.log(produkStore.produk);
     } catch (e) {
       error.value = e;
     }
