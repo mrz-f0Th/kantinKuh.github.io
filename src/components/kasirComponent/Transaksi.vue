@@ -1,4 +1,11 @@
 <template>
+<!-- <div v-for="(menu,a) in  transaksi.value.data" :key=" transaksi.kode_transaksi">
+        <hr/>
+          <pre>{{menu.keranjang[0].product}}</pre>
+          <pre>{{menu.keranjang[0].product[0].nama}}</pre>
+          <pre>ini {{a}}</pre>
+          {{menu.value}}
+        </div> -->
   <div class="grid grid-rows-12 bg-white ">
     <!-- Navbar -->
     <div class="navbar bg-green-100">
@@ -94,23 +101,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Nama</td>
-                      <td>3</td>
-                      <td><button class="btn btn-ghost btn-xs">details</button></td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Nama</td>
-                      <td>3</td>
-                      <td><button class="btn btn-ghost btn-xs">details</button></td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Nama</td>
-                      <td>3</td>
-                      <td><button class="btn btn-ghost btn-xs">details</button></td>
+                    <tr v-if="transaksi.value" v-for="(transaksi,i) in transaksi.value.data" :key="transaksi.kode">
+                      <td>{{}}</td>
+                      <td>{{transaksi.nama}}</td>
+                      <td>{{transaksi.meja}}</td>
+                      <td><button class="btn btn-ghost btn-xs" @click="isActive(true,i)">details</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -122,8 +117,32 @@
       <!-- Costumers Table -->
 
       <div class="col-span-5">
-        <div class="h-screen">
+        <div class="h-screen p-3" >
+          <div class="text-center text-xl" v-if="!active">
+            Pilih Data
+          </div>
 
+          <table class="table w-full bg-green-200" v-else>
+                  <thead >
+                    <tr>
+                      <th class="bg-green-200">#</th>
+                      <th class="bg-green-200">Menu</th>
+                      <th class="bg-green-200">jumlah</th>
+                      <th class="bg-green-200">Harga</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(menu,a) in  transaksi.value.data" :key=" transaksi.kode_transaksi">
+                      <td>{{}}</td>
+                      <td>{{menu.keranjang[0].product[0].nama}}</td>
+                      <td>{{menu.keranjang[0].product[0].pivot.jumlah}}</td>
+                      <td>{{menu.keranjang[0].product[0].harga }}</td>
+                    </tr>
+                    <tr>
+                      <td><button class="btn btn-ghost btn-xs" >Bayar</button></td>
+                    </tr>
+                  </tbody>
+                </table>
         </div>
       </div>
     </div>
@@ -132,26 +151,36 @@
 
 <script>
 import { useTransaksiStore } from "../../stores/transaksi.js"
-import { reactive } from "vue"
+import { onMounted, reactive, ref } from "vue"
+import Echo from "laravel-echo"
 import { useRouter } from "vue-router"
 
 export default {
   async setup() {
     const transaksiStore = useTransaksiStore()
     const router = useRouter()
-
+    const active = ref(false)
+    const  menu = reactive({})
     const transaksi = reactive({})
 
+    const isActive = (setActive,id) => {
+      active.value = setActive
+       menu.value = transaksi.value.data[id]
+      console.log( menu.value);
+    }
     try {
       await transaksiStore.getTransaksi()
       transaksi.value = transaksiStore.transaksi
+       menu.value = transaksi.value.data.keranjang
+      // console.log(transaksi.value.data);
     } catch (e) {
-      console.log()
+      console.log(e)
     }
 
-    const transaksiDetail = (id) => router.push({ path: `/kasir/${id}` })
+    // const transaksiDetail = (id) => router.push({ path: `/kasir/${id}` })
 
-    return { transaksi, transaksiDetail }
+    return { transaksi,active,isActive, menu}
   }
+  
 }
 </script>
