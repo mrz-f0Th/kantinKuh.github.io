@@ -3,8 +3,8 @@
     <div class="card lg:card-side bg-base-100 shadow-md m-5">
       <figure>
         <img
-          src="https://api.lorem.space/image/burger?w=400&h=400"
-          alt="Burger`"
+          :src="'http://localhost:8000/storage/image/' + data.gambar"
+          alt="Burger"
         />
       </figure>
       <div class="card-body">

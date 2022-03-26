@@ -19,7 +19,10 @@
                 <div class="avatar">
                   <div class="mask mask-squircle w-12 h-12">
                     <img
-                      src="https://api.lorem.space/image/burger?w=400&h=225"
+                      :src="
+                        'http://localhost:8000/storage/image/' +
+                        keranjang.gambar
+                      "
                       alt="Avatar Tailwind CSS Component"
                     />
                   </div>

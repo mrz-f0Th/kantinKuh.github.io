@@ -6,12 +6,7 @@
       v-for="produk in result.value"
       :key="produk.id"
     >
-      <figure>
-        <img
-          src="https://api.lorem.space/image/burger?w=400&h=225"
-          alt="Shoes"
-        />
-      </figure>
+      <figure><img :src="produk.data.image_url" alt="Shoes" /></figure>
       <div class="card-body">
         <h2 class="card-title">{{ produk.data.nama }}</h2>
         <p>Rp. {{ produk.data.harga }}</p>

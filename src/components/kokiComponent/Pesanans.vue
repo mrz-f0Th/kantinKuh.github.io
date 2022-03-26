@@ -21,14 +21,6 @@
             >
               <td>
                 <div class="flex items-center space-x-3">
-                  <div class="avatar">
-                    <div class="mask mask-squircle w-12 h-12">
-                      <img
-                        src="https://api.lorem.space/image/burger?w=400&h=225"
-                        alt="Avatar Tailwind CSS Component"
-                      />
-                    </div>
-                  </div>
                   <div>
                     <div class="font-bold">{{ transaksi.nama }}</div>
                   </div>
