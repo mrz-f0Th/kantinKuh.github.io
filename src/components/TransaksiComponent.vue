@@ -8,7 +8,7 @@
             <th>Nama</th>
             <th>Meja</th>
             <th>Harga</th>
-            <th></th>
+            <th class="flex justify-center">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -30,10 +30,19 @@
             <td>
               {{ transaksi.harga }}
             </td>
-            <th>
-              <button class="btn btn-ghost btn-xs">
+            <th class="flex justify-center">
+              <span
+                v-if="transaksi.status == 'dimasak'"
+                class="bg-warning rounded-lg px-2 py-1 cursor-not-allowed"
+              >
                 {{ transaksi.status }}
-              </button>
+              </span>
+              <span
+                v-if="transaksi.status == 'menunggu'"
+                class="bg-error rounded-lg px-2 py-1 cursor-not-allowed"
+              >
+                {{ transaksi.status }}
+              </span>
             </th>
           </tr>
         </tbody>

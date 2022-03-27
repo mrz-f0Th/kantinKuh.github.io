@@ -9,8 +9,7 @@
             <tr>
               <th>Nama</th>
               <th>Meja</th>
-              <th>Harga</th>
-              <th></th>
+              <th class="flex justify-center">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -29,13 +28,18 @@
               <td>
                 {{ transaksi.meja }}
               </td>
-              <td>
-                {{ transaksi.harga }}
-              </td>
-              <th>
+              <th class="flex justify-center">
                 <button
-                  class="btn btn-ghost btn-xs"
-                  @click="memasak(transaksi.kode_transaksi)"
+                  v-if="status.stat[i] == `dimasak${transaksi.kode_transaksi}`"
+                  class="btn btn-success btn-xs"
+                  @click="hidangkan(transaksi.kode_transaksi, i)"
+                >
+                  Hidangkan
+                </button>
+                <button
+                  v-else
+                  class="btn btn-warning btn-xs mr-2"
+                  @click="memasak(transaksi.kode_transaksi, i)"
                 >
                   Memasak
                 </button>
@@ -48,8 +52,7 @@
             <tr>
               <th>Nama</th>
               <th>Meja</th>
-              <th>Harga</th>
-              <th></th>
+              <th class="flex justify-center">Aksi</th>
             </tr>
           </tfoot>
         </table>
@@ -60,7 +63,7 @@
 
 <script>
 import { useTransaksiStore } from "../../stores/transaksi.js";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
@@ -69,18 +72,62 @@ export default {
     const router = useRouter();
 
     const transaksi = reactive({});
+    const status = reactive({
+      stat: [],
+    });
 
     try {
       await transaksiStore.getTransaksi();
       transaksi.value = transaksiStore.transaksi;
+      console.log(transaksi);
+      status.stat = transaksi.value.map((stat, i) => {
+        if (localStorage.status == null) {
+          status.stat.splice(i, 0, stat.kode_transaksi);
+          localStorage.setItem("status", JSON.stringify(status.stat));
+        } else if (
+          !status.stat.includes(`dimasak${stat.kode_transaksi}`) &&
+          !status.stat.includes(stat.kode_transaksi)
+        ) {
+          if (!localStorage.status.includes(stat.kode_transaksi)) {
+            status.stat = JSON.parse(localStorage.status);
+            status.stat.splice(i, 0, stat.kode_transaksi);
+            localStorage.setItem("status", JSON.stringify(status.stat));
+          }
+        }
+      });
+      status.stat = JSON.parse(localStorage.status);
     } catch (e) {
       console.log();
     }
 
-    const transaksiDetail = (id) => transaksiStore.setStatus("dimasak");
-    const memasak = (kode) => transaksiStore.updateTransaksi(kode, "dimasak");
+    const memasak = (kode, i) => {
+      if (!status.stat.includes(`dimasak${kode}`)) {
+        transaksiStore.updateTransaksi(kode, "dimasak");
 
-    return { transaksi, transaksiDetail, memasak };
+        const newStatus = reactive({ stat: [] });
+        newStatus.stat = status.stat.filter((stat) => stat !== kode);
+
+        newStatus.stat.splice(i, 0, `dimasak${kode}`);
+        console.log(i);
+
+        localStorage.setItem("status", JSON.stringify(newStatus.stat));
+        status.stat = JSON.parse(localStorage.status);
+        console.log(status);
+        console.log(newStatus);
+      }
+    };
+
+    const hidangkan = (kode) => {
+      transaksiStore.updateTransaksi(kode, "selesai");
+      status.push(`selesai${kode}`);
+    };
+
+    return {
+      transaksi,
+      memasak,
+      hidangkan,
+      status,
+    };
   },
 };
 </script>

@@ -147,7 +147,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  linkExactActiveClass: "bg-green-300",
+  linkExactActiveClass: "bg-success",
 });
 
 export default router;
