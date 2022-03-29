@@ -70,94 +70,78 @@
       ></div>
     </div>
     <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
-      <form class="bg-white">
-        <h1 class="text-gray-800 font-bold text-2xl mb-7">
-          Welcome Back Again!
-        </h1>
-        <div class="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+      <div
+        class="
+          card
+          flex-shrink-0
+          w-full
+          max-w-sm
+          md:shadow-2xl
+          sm:shadow-none
+          bg-base-100
+        "
+      >
+        <div class="card-body">
+          <h1 class="text-gray-800 font-bold text-2xl mb-7">
+            Welcome Back Again!
+          </h1>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Email</span>
+            </label>
+            <input
+              type="text"
+              placeholder="email"
+              v-model="user.email"
+              class="input input-bordered"
             />
-          </svg>
-          <input
-            class="pl-2 outline-none border-none"
-            type="text"
-            v-model="user.email"
-            name=""
-            id=""
-            placeholder="Email Address"
-          />
-        </div>
-        <div class="flex items-center border-2 py-2 px-3 rounded-2xl">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5 text-gray-400"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-              clip-rule="evenodd"
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              placeholder="password"
+              v-model="user.password"
+              class="input input-bordered"
             />
-          </svg>
-          <input
-            class="pl-2 outline-none border-none"
-            type="text"
-            v-model="user.password"
-            name=""
-            id=""
-            placeholder="Password"
-          />
+            <label class="label">
+              <a href="#" class="label-text-alt link link-hover"
+                >Forgot password?</a
+              >
+            </label>
+          </div>
+          <div class="form-control mt-6">
+            <button
+              class="btn btn-success"
+              @click="login"
+              :class="{ loading: isLoading }"
+            >
+              Login
+            </button>
+          </div>
         </div>
-        <router-link
-          to=""
-          @click="login()"
-          class="
-            w-full
-            bg-emerald-500
-            hover:bg-emerald-400
-            mt-4
-            py-2
-            rounded-2xl
-            text-white
-            font-semibold
-            mb-2
-            flex
-            justify-center
-          "
-        >
-          Login
-        </router-link>
-        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer"
-          >Forgot Password ?</span
-        >
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-import { useLoginGuard } from '../stores/loginGuard.js'
+import { reactive, ref } from "vue";
+import { useLoginGuard } from "../stores/loginGuard.js";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const loginGuard = useLoginGuard();
-const user = reactive({})
+const user = reactive({});
+const isLoading = ref(false);
 
-
-const login = () => {
-  loginGuard.csrf()
-  loginGuard.login(user)
-}
-
+const login = async () => {
+  isLoading.value = true;
+  loginGuard.csrf();
+  await loginGuard.login(user);
+  router.push({ name: "Dashboard" });
+};
 </script>

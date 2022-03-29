@@ -123,7 +123,9 @@
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import DataService from "../services/DataService";
+import { useKeranjangStore } from "../stores/keranjang.js";
 
+const keranjangStore = new useKeranjangStore();
 const router = useRouter();
 
 const produk = reactive({});
@@ -133,6 +135,7 @@ let preview = ref();
 const getImage = (event) => {
   isGambar = event.target.files[0];
   preview = URL.createObjectURL(event.target.files[0]);
+  keranjangStore.codeGenerator(5);
 };
 
 const tambahProduk = async () => {
@@ -140,7 +143,7 @@ const tambahProduk = async () => {
   formData.append("nama", produk.nama);
   formData.append("harga", produk.harga);
   formData.append("kategori", produk.kategori);
-  formData.append("kode", produk.kode);
+  formData.append("kode", keranjangStore.code);
   formData.append("status", produk.status);
   formData.append("gambar", isGambar);
 

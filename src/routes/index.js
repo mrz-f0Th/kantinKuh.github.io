@@ -64,9 +64,6 @@ const routes = [
     path: "/user",
     name: "DashboardUser",
     component: User,
-    meta: {
-      requiredAuthorization: true,
-    },
     children: [
       {
         path: "",
@@ -99,9 +96,6 @@ const routes = [
     path: "/user-login",
     name: "LoginUser",
     component: LoginUser,
-    meta: {
-      requiredAuthorization: false,
-    },
   },
 
   // kasir routes
@@ -148,6 +142,35 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   linkExactActiveClass: "bg-success",
+});
+
+router.beforeEach((to, from, next) => {
+  const privatePages = ["/", "/produk"];
+  const authRequired = privatePages.includes(to.path);
+  const loggedIn = localStorage.getItem("auth");
+
+  if (authRequired && !loggedIn) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, from, next) => {
+  const privatePages = [
+    "/user",
+    "/user/menu",
+    "/user/transaksi",
+    "/user/keranjang",
+  ];
+  const authRequired = privatePages.includes(to.path);
+  const loggedIn = localStorage.getItem("user");
+
+  if (authRequired && !loggedIn) {
+    next("/user-login");
+  } else {
+    next();
+  }
 });
 
 export default router;

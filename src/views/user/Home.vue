@@ -1,4 +1,4 @@
-<template>selamat datang, {{ user.value }}</template>
+<template>selamat datang</template>
 
 <script setup>
 import { useTransaksiStore } from "../../stores/transaksi.js";

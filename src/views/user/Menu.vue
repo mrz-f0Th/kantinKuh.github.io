@@ -1,36 +1,34 @@
 <template>
-  <Suspense>                   
-    <template #default>        
+  <Suspense>
+    <template #default>
       <div>
-        <produks :menu='menu' @onPesan="pesan" />        
-      </div>                   
-    </template>                
-    <template #fallback>       
+        <produks :menu="menu" @onPesan="pesan" />
+      </div>
+    </template>
+    <template #fallback>
       <div>
-        <span>Loading ...</span>        
-      </div>  
-    </template>                
+        <span>Loading ...</span>
+      </div>
+    </template>
   </Suspense>
 </template>
-  
-      
+
 <script>
-import produks from "../../components/Produks.vue"
-import { ref } from "vue"
-import { useRouter } from "vue-router"
+import produks from "../../components/Produks.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-export default{
-  components: {produks},
-  setup(){
-
-    const menu = ref(true)
-    const router = useRouter()
+export default {
+  components: { produks },
+  setup() {
+    const menu = ref(true);
+    const router = useRouter();
 
     const pesan = (id) => {
-      router.push({path : `menu/${id}`})
-    }
+      router.push({ path: `menu/${id}` });
+    };
 
-    return {pesan, menu}
-    }
-}
+    return { pesan, menu };
+  },
+};
 </script>

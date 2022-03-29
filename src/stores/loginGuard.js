@@ -6,14 +6,17 @@ export const useLoginGuard = defineStore({
   state: () => {
     return {
       user: {},
-    }
+    };
   },
   actions: {
     async login(data) {
       await auth.login(data);
     },
     async csrf() {
-      await auth.get_csrf()
-    }
-  }
+      await auth.get_csrf();
+    },
+    logout() {
+      auth.logout();
+    },
+  },
 });

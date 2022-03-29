@@ -1,8 +1,9 @@
 import http from "../http-common";
+import authHeader from "../services/auth.header";
 
 class DataService {
   createProduk(data) {
-    return http.post("/product", data);
+    return http.post("/auth/product", data, { headers: authHeader() });
   }
 
   getProduk() {

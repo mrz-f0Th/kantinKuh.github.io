@@ -1,8 +1,11 @@
 <template>
   <div class="h-screen">
-    <div class="navbar bg-base-100 mb-6 shadow rounded-box">
+    <div class="navbar bg-base-100 mb-6 shadow rounded-box fixed z-20">
       <div class="navbar-start">
-        <div class="dropdown md:block sm:hidden" :class="{ 'dropdown-open': isDropdown }">
+        <div
+          class="dropdown sm:block hidden"
+          :class="{ 'dropdown-open': isDropdown }"
+        >
           <label
             class="btn btn-ghost btn-circle"
             @click="isDropdown = !isDropdown"
@@ -60,7 +63,7 @@
         <router-link
           to="/user/keranjang"
           tabindex="0"
-          class="btn btn-ghost btn-circle bg-base-100"
+          class="btn btn-ghost btn-circle bg-base-100 sm:flex hidden"
         >
           <div class="indicator">
             <svg
@@ -85,17 +88,21 @@
       </div>
     </div>
 
-    <router-view />
+    <!-- view -->
+    <div class="pt-20">
+      <router-view />
+    </div>
+
+    <!-- Mobile -->
     <ul
       class="
         menu menu-horizontal
         bg-base-100
-        rounded-t-3xl
         shadow-lg
-        border-t
         fixed
-        md:hidden
-        sm:flex
+        border
+        flex
+        sm:hidden
         justify-around
         inset-x-0
         bottom-0
