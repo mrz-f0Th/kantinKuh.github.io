@@ -27,7 +27,7 @@ class DataService {
   }
 
   putKeranjang(kode, data) {
-    return http.patch(`keranjang/${kode}`, data);
+    return http.patch(`/keranjang/${kode}`, data);
   }
 
   deleteKeranjang(id) {
@@ -47,7 +47,7 @@ class DataService {
   }
 
   updateTransaksi(kode, params) {
-    return http.post(`/transaction/${kode}`, {
+    return http.post(`/auth/transaction/${kode}`, {
       status: params,
       _method: "patch",
     });
