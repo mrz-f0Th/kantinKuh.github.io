@@ -6,6 +6,7 @@ export const useProdukStore = defineStore({
   state: () => ({
     return: {
       produk: {},
+      produkId: {},
     },
   }),
   actions: {
@@ -15,7 +16,10 @@ export const useProdukStore = defineStore({
     },
     async getProdukId(id) {
       const produkId = await DataService.getProdukId(id);
-      this.produk = produkId.data;
+      this.produkId = produkId.data.data;
+    },
+    async deleteProduk(kode) {
+      await DataService.deleteProduk(kode);
     },
   },
 });

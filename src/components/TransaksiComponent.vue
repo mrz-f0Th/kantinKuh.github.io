@@ -5,6 +5,7 @@
         <!-- head -->
         <thead>
           <tr>
+            <th class="hidden"></th>
             <th>Nama</th>
             <th>Meja</th>
             <th>Harga</th>
@@ -20,7 +21,7 @@
             <td>
               <div class="flex items-center space-x-3">
                 <div>
-                  <div class="font-bold">{{ transaksi.nama }}</div>
+                  <div>{{ transaksi.nama }}</div>
                 </div>
               </div>
             </td>
@@ -38,6 +39,13 @@
                 {{ transaksi.status }}
               </span>
               <span
+                v-if="transaksi.status == 'hidangkan'"
+                class="bg-success rounded-lg px-2 py-1 cursor-not-allowed"
+              >
+                Selesai
+              </span>
+
+              <span
                 v-if="transaksi.status == 'menunggu'"
                 class="bg-error rounded-lg px-2 py-1 cursor-not-allowed"
               >
@@ -50,10 +58,11 @@
         <!-- foot -->
         <tfoot>
           <tr>
+            <th class="hidden"></th>
             <th>Nama</th>
             <th>Meja</th>
             <th>Harga</th>
-            <th></th>
+            <th class="flex justify-center">status</th>
           </tr>
         </tfoot>
       </table>

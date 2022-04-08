@@ -2,7 +2,9 @@
   <Suspense>
     <template #default>
       <div>
-        <produks :menu="menu" @onPesan="pesan" />
+        <div>
+          <produks :menu="menu" @onPesan="pesan" />
+        </div>
       </div>
     </template>
     <template #fallback>
@@ -14,7 +16,7 @@
 </template>
 
 <script>
-import produks from "../../components/Produks.vue";
+import produks from "../../components/userComponent/Produks.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -25,7 +27,7 @@ export default {
     const router = useRouter();
 
     const pesan = (id) => {
-      router.push({ path: `menu/${id}` });
+      router.push({ path: `/menu/${id}` });
     };
 
     return { pesan, menu };

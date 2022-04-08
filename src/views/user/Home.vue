@@ -1,14 +1,18 @@
-<template>selamat datang</template>
+<template>
+  <div class="p-4">
+    <h1 class="text-xl">selamat datang {{ user.nama }}</h1>
+  </div>
+</template>
 
 <script setup>
 import { useTransaksiStore } from "../../stores/transaksi.js";
-import { onMounted, reactive, computed } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 const transaksiStore = useTransaksiStore();
-const user = reactive({});
+const user = ref({});
 
 onMounted(() => {
   transaksiStore.getUser();
-  user.value = computed(() => transaksiStore.user);
+  user.value = transaksiStore.user;
 });
 </script>

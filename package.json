@@ -9,17 +9,20 @@
     "axios": "0.21.4",
     "daisyui": "^2.6.3",
     "es6-promise": "^4.2.8",
+    "moment": "^2.29.2",
     "pinia": "^2.0.11",
     "vue": "^3.2.0",
     "vue-barcode-reader": "^1.0.1",
     "vue-html-to-paper": "^1.4.4",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.0.12",
+    "vue3-print-nb": "^0.1.4"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.2",
     "@vue/compiler-sfc": "^3.0.4",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.8",
+    "tailwind-scrollbar": "^1.3.1",
     "tailwindcss": "^3.0.23",
     "vite": "^1.0.0-rc.13"
   },

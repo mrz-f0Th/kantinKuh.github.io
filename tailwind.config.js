@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui"), require('tailwind-scrollbar')],
+  variants: { scrollbar: ['rounded'] },
   daisyui: {
     styled: true,
     themes: true,

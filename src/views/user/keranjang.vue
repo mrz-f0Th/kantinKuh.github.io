@@ -2,8 +2,9 @@
   <Suspense>
     <template #default>
       <div>
-        <keranjang @transaksi="transaksi">
+        <keranjang @transaksi="transaksi" v-if="isKeranjang">
           <template v-slot:header>
+            <th class="hidden"></th>
             <th>Name</th>
             <th>Jumlah</th>
             <th>Harga</th>
@@ -11,12 +12,14 @@
           </template>
 
           <template v-slot:footer>
+            <th class="hidden"></th>
             <th>Name</th>
             <th>Jumlah</th>
             <th>Harga</th>
             <th></th>
           </template>
         </keranjang>
+        <span v-else>Tidak ada keranjang</span>
       </div>
     </template>
     <template #fallback>

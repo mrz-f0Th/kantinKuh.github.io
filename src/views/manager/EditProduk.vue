@@ -61,7 +61,13 @@
             rounded-md
           "
         >
-          <div v-if="!isGambar" class="space-y-1 text-center">
+          <div class="space-y-1 text-center">
+            <img
+              :src="'http://192.168.195.105:8000/storage/image/' + preview"
+              alt="imagePreview"
+              width="400"
+            />
+
             <svg
               class="mx-auto h-12 w-12 text-gray-400"
               stroke="currentColor"
@@ -106,12 +112,11 @@
             </div>
             <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
           </div>
-          <img v-else :src="preview" alt="imagePreview" width="400" />
         </div>
       </div>
       <div class="col-start-2 flex justify-end mt-3">
-        <button @click="tambahProduk" class="btn btn-success">
-          Tambah Produk
+        <button @click="editProduk" class="btn btn-outline-primary">
+          Edit
         </button>
       </div>
     </div>
@@ -120,38 +125,59 @@
 
 <script setup>
 import { reactive, ref } from "vue";
-import { useRouter } from "vue-router";
-import DataService from "../services/DataService";
-import { useKeranjangStore } from "../stores/keranjang.js";
+import { useRouter, useRoute } from "vue-router";
+import DataService from "../../services/DataService";
+import { useKeranjangStore } from "../../stores/keranjang";
+import { useProdukStore } from "../../stores/produk";
 
 const keranjangStore = new useKeranjangStore();
+const produkStore = new useProdukStore();
 const router = useRouter();
+const route = useRoute();
 
 const produk = reactive({});
 const isGambar = ref("");
 const preview = ref("");
+const produk_id = produkStore.produkId;
+
+produk.nama = produk_id.nama;
+produk.harga = produk_id.harga;
+produk.kategori = produk_id.nama;
+produk.kode = produk_id.kode;
+produk.status = produk_id.status;
+preview.value = produk_id.gambar;
+
+//
 
 const getImage = (event) => {
   isGambar.value = event.target.files[0];
+  console.log(isGambar);
+  console.log(event.target.files[0]);
   preview.value = URL.createObjectURL(event.target.files[0]);
   keranjangStore.codeGenerator(5);
 };
 
-const tambahProduk = async () => {
+const editProduk = async () => {
   const formData = new FormData();
   formData.append("nama", produk.nama);
   formData.append("harga", produk.harga);
   formData.append("kategori", produk.kategori);
-  formData.append("kode", keranjangStore.code);
+  formData.append("kode", produk.kode);
   formData.append("status", produk.status);
-  formData.append("gambar", isGambar.value);
-
+  if (isGambar.value != "") {
+    console.log(isGambar);
+    formData.append("gambar", isGambar);
+  }
   try {
-    await DataService.createProduk(formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    if (isGambar.value != "") {
+      await DataService.editProduk(produk.kode, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    } else {
+      await DataService.editProduk(produk.kode, produk);
+    }
     router.push({ name: "Produk" });
     console.log(isGambar);
   } catch (err) {

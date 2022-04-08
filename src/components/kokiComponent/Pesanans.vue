@@ -37,6 +37,14 @@
                   Hidangkan
                 </button>
                 <button
+                  v-else-if="
+                    status.stat[i] == `hidangkan${transaksi.kode_transaksi}`
+                  "
+                  class="btn btn-disabled btn-xs"
+                >
+                  Selesai
+                </button>
+                <button
                   v-else
                   class="btn btn-warning btn-xs mr-2"
                   @click="memasak(transaksi.kode_transaksi, i)"
@@ -79,6 +87,7 @@ export default {
     try {
       await transaksiStore.getTransaksi();
       transaksi.value = transaksiStore.transaksi;
+      console.log(transaksi.value);
       console.log(transaksi);
       status.stat = transaksi.value.map((stat, i) => {
         if (localStorage.status == null) {
@@ -100,26 +109,44 @@ export default {
       console.log();
     }
 
-    const memasak = (kode, i) => {
+    const memasak = async (kode, i) => {
       if (!status.stat.includes(`dimasak${kode}`)) {
-        transaksiStore.updateTransaksi(kode, "dimasak");
+        await transaksiStore
+          .updateTransaksi(kode, "dimasak")
+          .then((ress) => {
+            const newStatus = reactive({ stat: [] });
+            newStatus.stat = status.stat.filter((stat) => stat !== kode);
 
-        const newStatus = reactive({ stat: [] });
-        newStatus.stat = status.stat.filter((stat) => stat !== kode);
+            newStatus.stat.splice(i, 0, `dimasak${kode}`);
+            console.log(i);
 
-        newStatus.stat.splice(i, 0, `dimasak${kode}`);
-        console.log(i);
-
-        localStorage.setItem("status", JSON.stringify(newStatus.stat));
-        status.stat = JSON.parse(localStorage.status);
-        console.log(status);
-        console.log(newStatus);
+            localStorage.setItem("status", JSON.stringify(newStatus.stat));
+            status.stat = JSON.parse(localStorage.status);
+            console.log(status);
+            console.log(newStatus);
+          })
+          .catch((error) => console.log(error));
       }
     };
 
-    const hidangkan = (kode) => {
-      transaksiStore.updateTransaksi(kode, "selesai");
-      status.push(`selesai${kode}`);
+    const hidangkan = async (kode, i) => {
+      if (!status.stat.includes(`hidangkan${kode}`)) {
+        await transaksiStore
+          .updateTransaksi(kode, "hidangkan")
+          .then((ress) => {
+            const newStatus = reactive({ stat: [] });
+            newStatus.stat = status.stat.filter((stat) => stat !== kode);
+
+            newStatus.stat.splice(i, 1, `hidangkan${kode}`);
+            console.log(i);
+
+            localStorage.setItem("status", JSON.stringify(newStatus.stat));
+            status.stat = JSON.parse(localStorage.status);
+            console.log(status);
+            console.log(newStatus);
+          })
+          .catch((error) => console.log(error));
+      }
     };
 
     return {

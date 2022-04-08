@@ -1,5 +1,5 @@
 module.export = {
   devServer: {
-    proxy: 'http://localhost:8000'
-  }
-}
+    proxy: "https://backend-kantinkuh.herokuapp.com",
+  },
+};

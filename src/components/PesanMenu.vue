@@ -1,41 +1,105 @@
 <template>
-  <div>
-    <div class="card lg:card-side bg-base-100 shadow-md m-5">
+  <div class="h-screen grid-cols-1">
+    <div class="col-span-1 w-full">
       <figure>
         <img
-          :src="'http://localhost:8000/storage/image/' + data.gambar"
-          alt="Burger"
+          :src="
+            'http://192.168.198.105:8000/storage/image/' + produk.value.gambar
+          "
+          class="rounded-b-[30px] relative"
         />
       </figure>
-      <div class="card-body">
-        <h2 class="card-title text-2xl">{{ data.nama }}</h2>
-        <p>Rp. {{ data.harga }} | {{ data.status }}</p>
-        <div class="form-control">
-          <label class="input-group my-4">
-            <span>jumlah Pesanan</span>
-            <input
-              type="text"
-              v-model="keranjang.jumlah"
-              class="input input-bordered"
+      <div>
+        <router-link
+          to="/user/menu"
+          class="absolute top-5 left-5 rounded-lg bg-base-100/50"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19l-7-7 7-7"
             />
-          </label>
-          <label class="input-group">
-            <span>keterangan</span>
-            <input
-              type="text"
-              placeholder="2 pedas 1 manis | tambah bawang | dll"
-              class="input input-bordered"
-              v-model="keranjang.keterangan"
-            />
-          </label>
-        </div>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary" @click="masukKeranjang(keranjang)">
-            Pesan
-          </button>
-        </div>
+          </svg>
+        </router-link>
       </div>
     </div>
+    <!-- col 2 -->
+    <div class="col-span-1 p-5 mt-3">
+      <div class="h-2/4">
+        <h1 class="text-4xl font-medium">
+          {{ produk.value.nama }}
+        </h1>
+        <p class="text-gray-900/50">{{ produk.value.kategori }}</p>
+        <!-- Top -->
+        <div class="my-6 flex justify-between">
+          <h1 class="text-2xl font-medium">{{ harga }}</h1>
+          <div class="flex rounded-xl bg-success items-center text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mx-1.5 cursor-pointer"
+              @click="kurang"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M18 12H6"
+              />
+            </svg>
+            <span v-if="keranjang.jumlah" class="select-none">{{
+              keranjang.jumlah
+            }}</span>
+            <span v-else class="select-none">0</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mx-1.5 cursor-pointer"
+              @click="tambah"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+          </div>
+        </div>
+        <!-- end top -->
+      </div>
+    </div>
+    <!-- end col-1 -->
+    <div class="col-span-1 px-5">
+      <h1 class="text-xl font-medium">Keterangan</h1>
+      <textarea
+        v-model="keranjang.keterangan"
+        class="textarea textarea-success w-full my-2"
+        placeholder="Pedas, 2 manis, dll"
+      ></textarea>
+    </div>
+    <!-- button -->
+    <div class="fixed bottom-0 w-full flex justify-center">
+      <div
+        class="btn btn-success flex justify-center bg-success w-4/5 mb-3"
+        @click="masukKeranjang(keranjang)"
+      >
+        <p>Add to Cart</p>
+      </div>
+    </div>
+    <!-- end button -->
   </div>
 </template>
 
@@ -53,28 +117,46 @@ export default {
     const route = useRoute();
 
     const produk = reactive({});
-    const keranjang = reactive({});
+    const keranjang = reactive({
+      jumlah: 0,
+    });
+    const harga = ref("");
     const error = ref(null);
 
     try {
       await produkStore.getProdukId(route.params.id);
-      produk.value = produkStore.produk;
-      keranjang.produk = produkStore.produk;
+      produk.value = produkStore.produkId;
+      keranjang.produk = produkStore.produkId;
+      harga.value = produk.value.harga.toLocaleString("id", {
+        style: "currency",
+        currency: "IDR",
+      });
+      console.log(produk);
     } catch (e) {
       error.value = e;
     }
 
     const masukKeranjang = (value) => {
       const keranjang = reactive({
-        kode: [value.produk.data.kode],
+        kode: [value.produk.kode],
         jumlah: [value.jumlah],
         keterangan: [value.keterangan],
       });
       emit("masukKeranjang", keranjang);
-      console.log(keranjang);
+      console.log(value);
     };
 
-    return { ...produk.value, keranjang, masukKeranjang };
+    const tambah = () => {
+      keranjang.jumlah++;
+    };
+
+    const kurang = () => {
+      if (keranjang.jumlah != 0) {
+        keranjang.jumlah--;
+      }
+    };
+
+    return { produk, keranjang, masukKeranjang, harga, tambah, kurang };
   },
 };
 </script>

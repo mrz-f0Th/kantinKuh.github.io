@@ -13,6 +13,7 @@ import DashboardKoki from "../components/layout/DashboardKoki.vue";
 import Home from "../views/manager/Home.vue";
 import ProdukList from "../views/manager/ProdukList.vue";
 import PostProduk from "../components/PostProduk.vue";
+import EditProduk from "../views/manager/EditProduk.vue";
 
 // user
 import LoginUser from "../views/user/Form.vue";
@@ -51,7 +52,15 @@ const routes = [
         name: "PostProduk",
         component: PostProduk,
       },
+      {
+        path: "edit-produk/:id",
+        name: "EditProduk",
+        component: EditProduk,
+      },
     ],
+    meta: {
+      role: "admin",
+    },
   },
   {
     path: "/login",
@@ -76,11 +85,6 @@ const routes = [
         component: UserMenu,
       },
       {
-        path: "menu/:id",
-        name: "MenuId",
-        component: MenuId,
-      },
-      {
         path: "keranjang",
         name: "Keranjang",
         component: Keranjang,
@@ -93,7 +97,12 @@ const routes = [
     ],
   },
   {
-    path: "/user-login",
+    path: "/menu/:id",
+    name: "MenuId",
+    component: MenuId,
+  },
+  {
+    path: "/user-login/:id",
     name: "LoginUser",
     component: LoginUser,
   },
@@ -141,15 +150,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  linkExactActiveClass: "bg-success",
+  linkExactActiveClass:
+    "md:bg-gray-900 active:bg-gray-800 text-success bg-base-200 md:text-accent-content",
 });
 
 router.beforeEach((to, from, next) => {
   const privatePages = ["/", "/produk"];
   const authRequired = privatePages.includes(to.path);
   const loggedIn = localStorage.getItem("auth");
+  const me = localStorage.getItem("me");
 
   if (authRequired && !loggedIn) {
+    console.log(to.meta);
     next("/login");
   } else {
     next();

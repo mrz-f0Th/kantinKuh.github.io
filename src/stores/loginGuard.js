@@ -15,7 +15,7 @@ export const useLoginGuard = defineStore({
     async csrf() {
       await auth.get_csrf();
     },
-    logout() {
+    async logout() {
       auth.logout();
     },
   },

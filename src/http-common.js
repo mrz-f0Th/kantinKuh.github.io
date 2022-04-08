@@ -2,12 +2,13 @@ import axios from "axios";
 
 let instance = axios.create({
   withCredentials: true,
-  baseURL: "https://backend-kantinkuh.herokuapp.com/api",
+  baseURL: "http://192.168.198.105:8000/api/",
 });
 
 instance.interceptors.request.use((request) => {
   request.headers.common["Accept"] = "application/json";
   request.headers.common["Content-Type"] = "application/json";
+  request.headers.common["X-Requested-With"] = "XMLHttpRequest";
   return request;
 });
 

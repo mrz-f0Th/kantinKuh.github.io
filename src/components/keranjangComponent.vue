@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center">
+  <div class="flex justify-center" v-if="keranjang">
     <div class="overflow-x-auto w-11/12">
-      <table class="table w-full" v-if="keranjang.value.product">
+      <table class="table w-full" v-if="keranjang">
         <!-- head -->
         <thead>
           <tr>
@@ -20,7 +20,7 @@
                   <div class="mask mask-squircle w-12 h-12">
                     <img
                       :src="
-                        'http://localhost:8000/storage/image/' +
+                        'http://192.168.195.105:8000/storage/image/' +
                         keranjang.gambar
                       "
                       alt="Avatar Tailwind CSS Component"
@@ -66,6 +66,7 @@
       <div v-else>Tidak ada Keranjang</div>
     </div>
   </div>
+  <div v-else>Tidak ada Keranjang</div>
 </template>
 
 <script>

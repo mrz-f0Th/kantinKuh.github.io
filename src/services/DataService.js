@@ -14,6 +14,14 @@ class DataService {
     return http.get(`/product/${id}`);
   }
 
+  deleteProduk(id) {
+    return http.delete(`/auth/product/${id}`, { headers: authHeader() });
+  }
+
+  editProduk(id, data) {
+    return http.patch(`/auth/product/${id}`, data, { headers: authHeader() });
+  }
+
   setKeranjang(data) {
     return http.post("/keranjang", data);
   }
@@ -47,7 +55,7 @@ class DataService {
   }
 
   updateTransaksi(kode, params) {
-    return http.post(`/auth/transaction/${kode}`, {
+    return http.post(`/transaction/${kode}`, {
       status: params,
       _method: "patch",
     });

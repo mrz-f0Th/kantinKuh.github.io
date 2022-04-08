@@ -86,7 +86,7 @@
             Welcome Back Again!
           </h1>
 
-          <div class="form-control">
+          <!-- <div class="form-control">
             <label class="label">
               <span class="label-text">No Meja</span>
             </label>
@@ -96,7 +96,7 @@
               v-model="dataUser.meja"
               class="input input-bordered"
             />
-          </div>
+          </div>-->
           <div class="form-control">
             <label class="label">
               <span class="label-text">Nama</span>
@@ -136,18 +136,33 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { useLoginGuard } from "../../stores/loginGuard.js";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useTransaksiStore } from "../../stores/transaksi.js";
+//import CryptoJS from "crypto-js";
 
 const useTransaksi = useTransaksiStore();
 const router = useRouter();
+const route = useRoute();
 const loginGuard = useLoginGuard();
 
 const user = reactive({});
 const isLoading = ref(false);
 const dataUser = reactive({});
+const secretKey = "123#$%";
+
+onMounted(() => {
+  // get data from params
+  dataUser.meja = route.params.id;
+  console.log(dataUser.meja);
+
+  // decrypt data and convert to string
+  //const decryptData = CryptoJS.AES.decrypt(meja, secretKey).toString(
+  //CryptoJS.enc.Utf8
+  //);
+  //console.log(decryptData);
+});
 
 const login = () => {
   isLoading.value = true;
