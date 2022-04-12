@@ -60,6 +60,26 @@ class DataService {
       _method: "patch",
     });
   }
+
+  getViewLogLaporan() {
+    return http.get("/auth/log/view/laporan", { headers: authHeader() });
+  }
+
+  pengeluaranBulanan() {
+    return http.get("/auth/pengeluaran", { headers: authHeader() });
+  }
+
+  postPengeluaran(params) {
+    return http.post("/auth/pengeluaran", params, {headers: authHeader() })
+  }
+
+  getLaporanBulanan(params) {
+    return http.get(`/auth/log/laporan/bulanan/${params}/jumlah`, {headers: authHeader() })
+  }
+
+  getPengeluaranBulanan(params) {
+    return http.get(`/pengeluaran/bulanan/${params}/jumlah`, {headers: authHeader() })
+  }
 }
 
 export default new DataService();

@@ -126,8 +126,6 @@
       </div>
     </div>
   </div>
-  <input type="text" v-model="user.email" />
-  <input type="text" v-model="user.password" />
 </template>
 
 <script setup>
@@ -142,7 +140,9 @@ const isLoading = ref(false);
 
 const login = async () => {
   isLoading.value = true;
-  await loginGuard.login(user);
-  router.push({ name: "Dashboard" });
+  await loginGuard
+    .login(user)
+    .then(() => router.push({ name: "Dashboard" }))
+    .catch((err) => console.log(err));
 };
 </script>

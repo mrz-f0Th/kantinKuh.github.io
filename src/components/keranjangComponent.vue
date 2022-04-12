@@ -20,7 +20,7 @@
                   <div class="mask mask-squircle w-12 h-12">
                     <img
                       :src="
-                        'http://192.168.195.105:8000/storage/image/' +
+                        'http://192.168.223.105:8000/storage/image/' +
                         keranjang.gambar
                       "
                       alt="Avatar Tailwind CSS Component"

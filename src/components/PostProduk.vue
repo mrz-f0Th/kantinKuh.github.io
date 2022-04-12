@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="grid grid-cols-2 gap-3 p-5 bg-base-100 rounded-lg shadow">
+    <div class="grid grid-cols-2 gap-4 p-10 bg-base-100 rounded-lg shadow">
       <div class="form-control w-full max-w-xs">
         <label class="label">
           <span class="label-text">Nama Makanan : </span>
@@ -9,7 +9,7 @@
           type="text"
           v-model="produk.nama"
           placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered input-success w-full max-w-xs"
         />
       </div>
       <div class="form-control w-full max-w-xs">
@@ -17,35 +17,56 @@
           <span class="label-text">Harga :</span>
         </label>
         <input
-          type="text"
+          type="number"
           v-model="produk.harga"
           placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
+          class="input input-bordered input-success w-full max-w-xs"
         />
       </div>
       <div class="form-control w-full max-w-xs">
         <label class="label">
-          <span class="label-text">Status : </span>
-        </label>
-        <input
-          type="text"
-          v-model="produk.status"
-          placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
-        />
+          <span class="label-text">Kategori : </span> </label
+        ><select
+          v-model="produk.kategori"
+          class="select select-success w-full max-w-xs"
+        >
+          <option disabled selected>Kategori</option>
+          <option>food</option>
+          <option>drink</option>
+          <option>snack</option>
+        </select>
       </div>
+
       <div class="form-control w-full max-w-xs">
-        <label class="label">
+<label class="label">
           <span class="label-text">Kategori :</span>
         </label>
-        <input
-          type="text"
-          v-model="produk.kategori"
-          placeholder="Type here"
-          class="input input-bordered w-full max-w-xs"
-        />
+        <label class="label cursor-pointer flex justify-center">
+          <div class="grid grid-cols-1 justify-items-center mx-3">
+            <input
+            v-model="produk.status"
+            type="radio"
+            name="radio-6"
+            value="habis"
+            class="radio checked:bg-error"
+            checked
+          />
+          <span class="label-text font-medium">Habis</span>
+        </div>
+        <div class="grid grid-cols-1 justify-items-center mx-3">
+          <input
+            v-model="produk.status"
+            type="radio"
+            name="radio-6"
+            value="ada"
+            class="radio checked:bg-success"
+            checked
+          />
+ <span class="label-text font-medium">Ada</span>
+        </div>
+        </label>
       </div>
-      <div class="col-span-2">
+            <div class="col-span-2">
         <label class="block text-sm font-medium text-gray-700">
           Cover photo
         </label>
@@ -151,10 +172,12 @@ const tambahProduk = async () => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    });
-    router.push({ name: "Produk" });
+    }).then(() => {
+ router.push({ name: "Produk" });
     console.log(isGambar);
-  } catch (err) {
+
+    })
+     } catch (err) {
     console.log(err);
   }
 };

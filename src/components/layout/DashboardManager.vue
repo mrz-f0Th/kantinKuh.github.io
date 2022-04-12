@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen overflow-y-hidden">
-    <div class="navbar bg-base-200 col-span-5 fixed">
+    <div class="navbar bg-base-500 col-span-5 fixed">
       <div class="navbar-start ml-4 mt-2">
         <h1 class="text-2xl font-bold">KantinKuh</h1>
       </div>

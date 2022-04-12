@@ -1,10 +1,11 @@
 <template>
-  <div class="h-screen grid-cols-1">
-    <div class="col-span-1 w-full">
+  <div class="">
+    <!-- row 1 -->
+    <div>
       <figure>
         <img
           :src="
-            'http://192.168.198.105:8000/storage/image/' + produk.value.gambar
+            'http://192.168.223.105:8000/storage/image/' + produk.value.gambar
           "
           class="rounded-b-[30px] relative"
         />
@@ -31,15 +32,17 @@
         </router-link>
       </div>
     </div>
-    <!-- col 2 -->
-    <div class="col-span-1 p-5 mt-3">
-      <div class="h-2/4">
+
+    <!-- row 2 -->
+    <div class="px-5">
+      <div class="mt-3">
         <h1 class="text-4xl font-medium">
           {{ produk.value.nama }}
         </h1>
         <p class="text-gray-900/50">{{ produk.value.kategori }}</p>
+
         <!-- Top -->
-        <div class="my-6 flex justify-between">
+        <div class="flex justify-between mt-3">
           <h1 class="text-2xl font-medium">{{ harga }}</h1>
           <div class="flex rounded-xl bg-success items-center text-white">
             <svg
@@ -81,25 +84,39 @@
         <!-- end top -->
       </div>
     </div>
-    <!-- end col-1 -->
-    <div class="col-span-1 px-5">
-      <h1 class="text-xl font-medium">Keterangan</h1>
-      <textarea
-        v-model="keranjang.keterangan"
-        class="textarea textarea-success w-full my-2"
-        placeholder="Pedas, 2 manis, dll"
-      ></textarea>
-    </div>
-    <!-- button -->
-    <div class="fixed bottom-0 w-full flex justify-center">
-      <div
-        class="btn btn-success flex justify-center bg-success w-4/5 mb-3"
-        @click="masukKeranjang(keranjang)"
-      >
-        <p>Add to Cart</p>
+
+    <!-- row 3 -->
+    <div>
+      <div class="p-5 mt-5 mb-10">
+        <h1 class="text-xl font-medium">Keterangan</h1>
+        <textarea
+          v-model="keranjang.keterangan"
+          class="textarea textarea-success w-full my-2"
+          placeholder="Pedas, 2 manis, dll"
+        ></textarea>
       </div>
+
+      <!-- button -->
+      <div
+        class="
+          hidden
+          keyboard:flex
+          justify-center
+          items-end
+          fixed
+          w-full
+          bg-base-100
+        "
+      >
+        <div
+          class="btn btn-success flex justify-center bottom-0 w-4/5 mb-3 fixed"
+          @click="masukKeranjang(keranjang)"
+        >
+          <p>Add to Cart</p>
+        </div>
+      </div>
+      <!-- end button -->
     </div>
-    <!-- end button -->
   </div>
 </template>
 
@@ -131,7 +148,6 @@ export default {
         style: "currency",
         currency: "IDR",
       });
-      console.log(produk);
     } catch (e) {
       error.value = e;
     }

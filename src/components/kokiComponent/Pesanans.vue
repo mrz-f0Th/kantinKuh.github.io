@@ -67,6 +67,69 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" id="my-modal-5" class="modal-toggle" />
+  <Suspense>
+    <template #default>
+      <div class="modal flex items-center">
+        <div class="modal-box w-11/12 max-w-5xl">
+          <h3 class="font-bold text-lg">Detail Transaksi</h3>
+
+          <div class="py-4">
+            <!-- table detail -->
+            <table class="table table-zebra w-full table-normal">
+              <thead>
+                <tr>
+                  <th class="hidden"></th>
+                  <th>Nama</th>
+                  <th>Harga</th>
+                  <th>Jumlah</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                <tr v-for="(transaksi, i) in keranjang.value">
+                  <th class="hidden"></th>
+                  <td>
+                    <div class="flex items-center space-x-3">
+                      <div>
+                        <!-- <div class="font-bold">{{ transaksi.keranjang }}</div> -->
+                        <div v-for="keranjang in keranjang.value">
+                          {{keranjang}}
+                        </div>
+                        <div class="text-sm opacity-50">
+                          {{ transaksi }}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Rp. {{ }}</td>
+                  <td>{{  }}</td>
+                  <td>Rp. {{ }}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <span class="flex justify-end text-lg font-bold">
+                      Total: Rp. {{ }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-action">
+            <button class="btn btn-success">Print</button>
+            <label for="my-modal-5" class="btn btn-error">Close</label>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template #fallback>Loading ...</template>
+  </Suspense>
 </template>
 
 <script>
@@ -79,20 +142,37 @@ export default {
     const transaksiStore = useTransaksiStore();
     const router = useRouter();
 
+    const statusKu = reactive({})
+
     const transaksi = reactive({});
     const status = reactive({
       stat: [],
     });
 
+    const keranjang = reactive({})
+
     try {
+      if(localStorage.getItem("status") != null) {
       await transaksiStore.getTransaksi();
       transaksi.value = transaksiStore.transaksi;
-      console.log(transaksi.value);
-      console.log(transaksi);
+
+      keranjang.value = transaksi.value.keranjang[0].product
+      console.log(keranjang.value)
       status.stat = transaksi.value.map((stat, i) => {
         if (localStorage.status == null) {
           status.stat.splice(i, 0, stat.kode_transaksi);
-          localStorage.setItem("status", JSON.stringify(status.stat));
+          status.stat.forEach((stat) => {
+            if(stat == "dimasak") {
+              stat == `dimasak${stat.kode_transaksi}`
+              localStorage.setItem("status", JSON.stringify(status.stat));
+            }else if(stat == "hidangkan"){
+              stat == `hidangkan${stat.kode_transaksi}`
+              localStorage.setItem("status", JSON.stringify(status.stat));
+            }else {
+              localStorage.setItem("status", JSON.stringify(status.stat));
+            }
+          })
+          
         } else if (
           !status.stat.includes(`dimasak${stat.kode_transaksi}`) &&
           !status.stat.includes(stat.kode_transaksi)
@@ -105,6 +185,7 @@ export default {
         }
       });
       status.stat = JSON.parse(localStorage.status);
+      }
     } catch (e) {
       console.log();
     }
@@ -154,6 +235,7 @@ export default {
       memasak,
       hidangkan,
       status,
+      keranjang
     };
   },
 };

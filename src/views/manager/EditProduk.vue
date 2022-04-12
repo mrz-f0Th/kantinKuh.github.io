@@ -63,7 +63,7 @@
         >
           <div class="space-y-1 text-center">
             <img
-              :src="'http://192.168.195.105:8000/storage/image/' + preview"
+              :src="'http://192.168.223.105:8000/storage/image/' + preview"
               alt="imagePreview"
               width="400"
             />
@@ -145,6 +145,7 @@ produk.harga = produk_id.harga;
 produk.kategori = produk_id.nama;
 produk.kode = produk_id.kode;
 produk.status = produk_id.status;
+produk.gambar = produk_id.gambar
 preview.value = produk_id.gambar;
 
 //
@@ -170,7 +171,7 @@ const editProduk = async () => {
   }
   try {
     if (isGambar.value != "") {
-      await DataService.editProduk(produk.kode, formData, {
+      await DataService.editProduk(produk.kode, produk, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
