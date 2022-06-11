@@ -1,11 +1,11 @@
 <template>
-  <div class="">
+  <div class="sm:hidden block">
     <!-- row 1 -->
     <div>
       <figure>
         <img
           :src="
-            'http://192.168.223.105:8000/storage/image/' + produk.value.gambar
+            'http://192.168.212.105:8000/storage/image/' + produk.value.gambar
           "
           class="rounded-b-[30px] relative"
         />
@@ -118,6 +118,25 @@
       <!-- end button -->
     </div>
   </div>
+  <div class="h-screen flex">
+    <div class="card lg:card-side bg-base-100 shadow-xl w-10/12 m-auto ">
+      <figure class="w-2/3">
+        <img :src="
+              'http://192.168.212.105:8000/storage/image/' + produk.value.gambar" alt="Album" />
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title text-4xl">{{ produk.value.nama }}</h2>
+        <p class="text-gray-900/50">{{ produk.value.kategori }}</p>
+        <p>Jumlah :</p>
+        <input type="number" v-model="keranjang.jumlah" placeholder="Type here" class="input input-bordered input-success w-full max-w-xs">
+        <p>keterangan :</p>
+        <input type="text" v-model="keranjang.keterangan" placeholder="Type here" class="input input-bordered input-success w-full max-w-xs">
+        <div class="card-actions justify-end">
+          <button class="btn btn-success" :class="{loading : isLoading}" @click="masukKeranjang(keranjang)">Add to Card</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -132,10 +151,11 @@ export default {
     const produkStore = useProdukStore();
     const keranjangStore = useKeranjangStore();
     const route = useRoute();
+    const isLoading = ref(false);
 
     const produk = reactive({});
     const keranjang = reactive({
-      jumlah: 0,
+      jumlah: 1,
     });
     const harga = ref("");
     const error = ref(null);
@@ -153,6 +173,7 @@ export default {
     }
 
     const masukKeranjang = (value) => {
+      isLoading.value = true;
       const keranjang = reactive({
         kode: [value.produk.kode],
         jumlah: [value.jumlah],
@@ -160,6 +181,7 @@ export default {
       });
       emit("masukKeranjang", keranjang);
       console.log(value);
+      console.log(keranjang)
     };
 
     const tambah = () => {
@@ -172,7 +194,15 @@ export default {
       }
     };
 
-    return { produk, keranjang, masukKeranjang, harga, tambah, kurang };
+    return {
+      produk,
+      keranjang,
+      isLoading,
+      masukKeranjang,
+      harga,
+      tambah,
+      kurang,
+    };
   },
 };
 </script>

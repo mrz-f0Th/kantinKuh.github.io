@@ -39,7 +39,7 @@
 
       <div class="form-control w-full max-w-xs">
 <label class="label">
-          <span class="label-text">Kategori :</span>
+          <span class="label-text">Status :</span>
         </label>
         <label class="label cursor-pointer flex justify-center">
           <div class="grid grid-cols-1 justify-items-center mx-3">
@@ -49,7 +49,6 @@
             name="radio-6"
             value="habis"
             class="radio checked:bg-error"
-            checked
           />
           <span class="label-text font-medium">Habis</span>
         </div>
@@ -60,7 +59,6 @@
             name="radio-6"
             value="ada"
             class="radio checked:bg-success"
-            checked
           />
  <span class="label-text font-medium">Ada</span>
         </div>

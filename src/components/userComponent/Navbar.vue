@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navbar bg-base-100 sm:shadow sm:rounded-box fixed z-20">
+    <div class="navbar bg-base-100 sm:shadow sm:rounded-box fixed z-30 rounded-b-lg">
       <div class="navbar-start">
         <h1 class="sm:hidden font-medium text-2xl ml-3">KantinKuh</h1>
         <div

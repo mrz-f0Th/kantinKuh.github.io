@@ -84,6 +84,7 @@ export default {
     try {
       await produkStore.getProduk();
       result.value = produkStore.produk;
+      console.log(result.value)
     } catch (e) {
       error.value = e;
     }

@@ -7,6 +7,8 @@ export const useProdukStore = defineStore({
     return: {
       produk: {},
       produkId: {},
+      produkPopular: {},
+      produkPopularBanget: []
     },
   }),
   actions: {
@@ -21,5 +23,14 @@ export const useProdukStore = defineStore({
     async deleteProduk(kode) {
       await DataService.deleteProduk(kode);
     },
+    async searchProduk(params) {
+      const prod = await DataService.searchProduk(params);
+      this.produk = prod.data.data
+      this.produkPopularBanget = prod.data.data
+    },
+    async getPopular() {
+      const prod = await DataService.getPopular();
+      this.produkPopular = prod.data.data
+    }
   },
 });

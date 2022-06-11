@@ -1,4 +1,7 @@
-import { createWebHistory, createRouter } from "vue-router";
+import {
+  createWebHistory,
+  createRouter
+} from "vue-router";
 
 // Login
 import Login from "../views/LoginView.vue";
@@ -30,14 +33,23 @@ import KasirDetail from "../views/kasir/DetailTransaksi.vue";
 // koki
 import KokiHome from "../views/koki/HomeKoki.vue";
 
+
+const me = JSON.parse(localStorage.getItem("me"));
+
 const routes = [
   // Manager Routes
   {
     path: "/",
     name: "DashboardManager",
     component: DashboardManager,
-    children: [
-      {
+    beforeEnter: (to, from, next) => {
+      if(me.role != 'manager') {
+        next('/login')
+      }else {
+        next()
+      }
+    },
+    children: [{
         path: "",
         name: "Dashboard",
         component: Home,
@@ -73,8 +85,7 @@ const routes = [
     path: "/user",
     name: "DashboardUser",
     component: User,
-    children: [
-      {
+    children: [{
         path: "",
         name: "UserHome",
         component: UserHome,
@@ -112,11 +123,14 @@ const routes = [
     path: "/kasir",
     name: "DashboardKasir",
     component: DashboardKasir,
-    meta: {
-      requiredAuthorization: true,
+    beforeEnter: (to, from, next) => {
+      if(me.role != 'kasir') {
+        next('/login')
+      }else {
+        next()
+      }
     },
-    children: [
-      {
+    children: [{
         path: "",
         name: "KasirHome",
         component: KasirHome,
@@ -134,55 +148,60 @@ const routes = [
     path: "/koki",
     name: "Koki",
     component: DashboardKoki,
-    meta: {
-      requiredAuthorization: false,
+    beforeEnter: (to, from, next) => {
+      if(me.role != 'koki') {
+        next('/login')
+      }else {
+        next()
+      }
     },
-    children: [
-      {
-        path: "",
-        name: "kokiHome",
-        component: KokiHome,
-      },
-    ],
+    children: [{
+      path: "",
+      name: "kokiHome",
+      component: KokiHome,
+    }, ],
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  linkExactActiveClass:
-    "md:bg-gray-900 active:bg-gray-800 text-success bg-base-200 md:text-accent-content",
+  linkExactActiveClass: "md:bg-gray-900 active:bg-gray-800 text-success bg-base-200 md:text-accent-content",
 });
 
-router.beforeEach((to, from, next) => {
-  const privatePages = ["/", "/produk"];
+router.beforeEach(async (to, from, next) => {
+  const privatePages = [
+    "/",
+    "/produk",
+    "/koki",
+    "/kasir"
+  ];
+
   const authRequired = privatePages.includes(to.path);
   const loggedIn = localStorage.getItem("auth");
-  const me = localStorage.getItem("me");
 
-  if (authRequired && !loggedIn) {
-    console.log(to.meta);
+  if (authRequired && !me) {
     next("/login");
   } else {
-    next();
+    next()
   }
 });
 
-router.beforeEach((to, from, next) => {
-  const privatePages = [
-    "/user",
-    "/user/menu",
-    "/user/transaksi",
-    "/user/keranjang",
-  ];
-  const authRequired = privatePages.includes(to.path);
-  const loggedIn = localStorage.getItem("user");
+// router.beforeEach((to, from, next) => {
+//   const privatePages = [
+//     "/user",
+//     "/user/menu",
+//     "/user/transaksi",
+//     "/user/keranjang",
+//   ];
+//   const authRequired = privatePages.includes(to.path);
+//   const loggedIn = localStorage.getItem("user");
 
-  if (authRequired && !loggedIn) {
-    next("/user-login");
-  } else {
-    next();
-  }
-});
+//   if (authRequired && !loggedIn) {
+//     next("/user-login");
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

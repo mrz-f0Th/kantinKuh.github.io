@@ -140,9 +140,19 @@ const isLoading = ref(false);
 
 const login = async () => {
   isLoading.value = true;
-  await loginGuard
-    .login(user)
-    .then(() => router.push({ name: "Dashboard" }))
-    .catch((err) => console.log(err));
+  try {
+  await loginGuard.login(user)
+  const me = JSON.parse(localStorage.getItem('me'))
+  console.log(me.role)
+  router.push({path: '/'})
+  if(me.role == 'manager') {
+    router.push({path: '/'})
+  }else if(me.role == 'koki'){
+    router.push({path: '/koki'})
+  }
+  console.log(me)
+  }catch(err) {
+    console.log(err)
+  }
 };
 </script>

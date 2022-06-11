@@ -22,6 +22,10 @@ class DataService {
     return http.patch(`/auth/product/${id}`, data, { headers: authHeader() });
   }
 
+  searchProduk(params) {
+    return http.get(`/produk/search/${params}`)
+  }
+
   setKeranjang(data) {
     return http.post("/keranjang", data);
   }
@@ -79,6 +83,10 @@ class DataService {
 
   getPengeluaranBulanan(params) {
     return http.get(`/pengeluaran/bulanan/${params}/jumlah`, {headers: authHeader() })
+  }
+
+  getPopular() {
+    return http.get('/popular')
   }
 }
 

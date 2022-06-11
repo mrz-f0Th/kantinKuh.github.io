@@ -1,7 +1,4 @@
 <template>
-  <div class="navbar bg-green-300">
-    <a class="btn btn-ghost normal-case text-xl">KantinKuh</a>
-  </div>
   <div class="m-10">
     <div class="overflow-x-auto">
       <table class="table table-zebra w-full">
@@ -29,7 +26,7 @@
                 for="my-modal-5"
                 class="btn modal-button"
                 @click="getTransaksiKode(data.kode_transaksi)"
-                >open modal</label
+                >Detail</label
               >
             </td>
           </tr>
